@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Monitores</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div th:if="${solicitudesPendientes.equals('false')}">
+        <h1>Listado monitores</h1>
+    </div>
+    <div th:if="${solicitudesPendientes.equals('true')}">
+        <h1>Listado solicitudes para monitores</h1>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id monitor</th>
+            <th>Nnombre</th>
+            <th>DNI</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="monitor: ${monitores}">
+            <td th:text="${monitor.id_monitor}"></td>
+            <td th:text="${monitor.nombre}"></td>
+            <td th:text="${monitor.nif}"></td>
+            <td th:text="${monitor.email}"></td>
+            <div th:if="${solicitudesPendientes.equals('false')}">
+                <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Actualizar</a></td>
+                <td><a th:href="@{/monitor/elimina/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Borrar</a></td>
+            </div>
+            <div th:if="${solicitudesPendientes.equals('true')}">
+                <td> <a th:href="@{/monitor/solicitud/aprobada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Aceptar</a></td>
+                <td><a th:href="@{/monitor/solicitud/denegada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Denegar</a></td>
+            </div>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
