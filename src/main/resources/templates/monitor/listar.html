@@ -18,27 +18,33 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id monitor</th>
-            <th>Nnombre</th>
+            <th>Nombre</th>
             <th>DNI</th>
             <th>Email</th>
-            <th></th>
-            <th></th>
+            <th>Certificaciones</th>
+            <th>Observaciones</th>
+            <th>Opciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="monitor: ${monitores}">
-            <td th:text="${monitor.id_monitor}"></td>
             <td th:text="${monitor.nombre}"></td>
             <td th:text="${monitor.nif}"></td>
             <td th:text="${monitor.email}"></td>
+           <!-- <td th:each="m : ${certificados.values()}">
+                <li th:each="c: ${m}" th:text ="${c}"/>
+
+            </td>-->
+            <td></td>
+          <td th:text="${monitor.observaciones}"></td>
+
             <div th:if="${solicitudesPendientes.equals('false')}">
-                <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Actualizar</a></td>
-                <td><a th:href="@{/monitor/elimina/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Borrar</a></td>
+                <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Actualizar</a>
+                    <a th:href="@{/monitor/elimina/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Borrar</a></td>
             </div>
             <div th:if="${solicitudesPendientes.equals('true')}">
-                <td> <a th:href="@{/monitor/solicitud/aprobada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Aceptar</a></td>
-                <td><a th:href="@{/monitor/solicitud/denegada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Denegar</a></td>
+                    <td><a th:href="@{/monitor/solicitud/aprobada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Aceptar</a>
+                    <a th:href="@{/monitor/solicitud/denegada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Denegar</a></td>
             </div>
 
         </tr>
@@ -47,3 +53,4 @@
 
 </div>
 </body>
+</html>

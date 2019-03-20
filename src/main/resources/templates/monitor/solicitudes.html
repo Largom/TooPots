@@ -37,14 +37,19 @@
         </div>
 
 
-        <div class="form-group" action="#" th:action="@{/monitor/solicitud}"
-             th:object="${certificados}">
-            <label for="certificados" class="control-label">Certificados</label>
-            <select class="form-control" id="certificados">
-                <tr th:each="certificado: ${certificados}">
-                    <option type="text"><td th:text="${certificado.descripcion}"></td></option>
-            </select>
+
+        <div class="form-group row ">
+            <label class="control-label col-sm-2 ">Certificados </label>
+            <div class="col-sm-4">
+                <select class="form-control" th:field="*{certificados}">
+                <option th:each="certificado : ${certificados}"
+                        th:value="${certificado.id_certificado}"
+                        th:text="${certificado.descripcion}">Wireframe</option>
+                </select>
+            </div>
         </div>
+
+
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="observaciones">Observaciones:</label>

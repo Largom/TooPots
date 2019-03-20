@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 public class Actividad {
 
-    private String id_actividad;
+    private int id_actividad;
     private String nombre;
     private String lugar;
     @DateTimeFormat(pattern = "HH:mm:ss.SSS")
@@ -23,11 +23,11 @@ public class Actividad {
     public Actividad() {
     }
 
-    public String getId_actividad() {
+    public int getId_actividad() {
         return id_actividad;
     }
 
-    public void setId_actividad(String id_actividad) {
+    public void setId_actividad(int id_actividad) {
         this.id_actividad = id_actividad;
     }
 

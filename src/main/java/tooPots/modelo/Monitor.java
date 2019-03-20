@@ -1,5 +1,7 @@
 package tooPots.modelo;
 
+import java.util.List;
+
 public class Monitor {
 
     private int id_monitor;
@@ -8,6 +10,7 @@ public class Monitor {
     private String email;
     private String cuentaBancaria;
     private String observaciones;
+    private List<String> certificados;
 
 
     public Monitor() {
@@ -53,11 +56,14 @@ public class Monitor {
         this.cuentaBancaria = cuentaBancaria;
     }
 
-    public String getObservaciones() {
-        return observaciones;
+    public String getObservaciones() { return observaciones; }
+
+    public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+
+    public List<String> getCertificados() { return certificados; }
+
+    public void setCertificados(List<String> certificados) {
+        this.certificados = certificados;
     }
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
 }

@@ -11,8 +11,12 @@ public class CertificadoRowMapper implements RowMapper<Certificado>{
 
         Certificado certificado = new Certificado();
         certificado.setId_certificado(rs.getString("id_certificado"));
-        certificado.setNombre(rs.getString("nombre"));
-        certificado.setDescripcion(rs.getString("descripcion"));
+        try {
+            certificado.setNombre(rs.getString("nombre"));
+            certificado.setDescripcion(rs.getString("descripcion"));
+        }
+        catch (Exception e){}
+
         return certificado;
     }
 

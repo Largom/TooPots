@@ -4,7 +4,7 @@ public class Reserva {
 
     private String id_reserva;
     private String id_actividad;
-    private String id_cliente;
+    private int id_cliente;
     private int asistentes;
     private int precioFinal;
     private int precioTotal;
@@ -31,11 +31,11 @@ public class Reserva {
         this.id_actividad = id_actividad;
     }
 
-    public String getId_cliente() {
+    public int getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(String id_cliente) {
+    public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
 

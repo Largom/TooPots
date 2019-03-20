@@ -38,4 +38,42 @@ public class CertificadoDao {
         jdbcTemplate.update("INSERT INTO certificados_solicitudes VALUES(?, ?)",
                 c.getId_certificado() , id_solicitud);
     }
+
+    //Añadir certificados a los monitores
+    public void añadirCertificadoMonitor(Certificado c, int id_monitor) {
+        jdbcTemplate.update("INSERT INTO certificados_monitor VALUES(?, ?)",
+                c.getId_certificado() , id_monitor);
+    }
+
+    //Busqueda y seleccion de certicados de un monitor
+    public Certificado buscaCertificado(String nombre) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * from certificados WHERE id_certificado=?",
+                    new CertificadoRowMapper(), nombre);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    //Busqueda y seleccion de certificados de un monitor
+    public List<Certificado> consultaCertificadosMonitor(String id_monitor) {
+        try {
+            return jdbcTemplate.query("SELECT * from certificados_monitor WHERE id_monitor=?",
+                    new CertificadoRowMapper(), id_monitor);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Certificado>();
+        }
+    }
+    //Busqueda y seleccion de certificados de una solicitud de monitor
+    public List<Certificado> consultaCertificadosSolicitud(int id_monitor) {
+        try {
+            return jdbcTemplate.query("SELECT * from certificados_solicitudes WHERE id_monitor=?",
+                    new CertificadoRowMapper(), id_monitor);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Certificado>();
+        }
+    }
+
+
+
 }

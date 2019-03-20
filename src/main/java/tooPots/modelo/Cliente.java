@@ -3,6 +3,10 @@ package tooPots.modelo;
 public class Cliente {
 
     private String id_cliente;
+
+
+
+    private String nombre;
     private String dni;
     private String sexo;
     private int añoNacimiento;
@@ -22,6 +26,10 @@ public class Cliente {
     public String getDni() {
         return dni;
     }
+
+    public String getNombre() { return nombre; }
+
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
     public void setDni(String dni) {
         this.dni = dni;
