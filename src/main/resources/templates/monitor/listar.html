@@ -31,12 +31,12 @@
             <td th:text="${monitor.nombre}"></td>
             <td th:text="${monitor.nif}"></td>
             <td th:text="${monitor.email}"></td>
-           <!-- <td th:each="m : ${certificados.values()}">
-                <li th:each="c: ${m}" th:text ="${c}"/>
-
-            </td>-->
-            <td></td>
-          <td th:text="${monitor.observaciones}"></td>
+            <td>
+            <th:block th:each="m : ${certificados.keySet()}">
+                <p th:text ="${m.nombre}"></p>
+            </th:block>
+            </td>
+            <td th:text="${monitor.observaciones}"></td>
 
             <div th:if="${solicitudesPendientes.equals('false')}">
                 <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Actualizar</a>
