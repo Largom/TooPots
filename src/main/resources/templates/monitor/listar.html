@@ -14,7 +14,7 @@
     <div th:if="${solicitudesPendientes.equals('true')}">
         <h1>Listado solicitudes para monitores</h1>
     </div>
-
+    <div class="container col-md-12 ">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -30,10 +30,13 @@
         <tr th:each="monitor: ${monitores}">
             <td th:text="${monitor.nombre}"></td>
             <td th:text="${monitor.nif}"></td>
-            <td th:text="${monitor.email}"></td>
+            <td th:text= "${monitor.email}"></td>
             <td>
             <th:block th:each="m : ${certificados.keySet()}">
-                <p th:text ="${m.nombre}"></p>
+                <div th:if ="${m==monitor.id_monitor}">
+                    <p th:each ="c : ${certificados.get(m)}" th:text = "${c.descripcion}"></p>
+                </div>
+
             </th:block>
             </td>
             <td th:text="${monitor.observaciones}"></td>
@@ -50,6 +53,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
 
 </div>
 </body>
