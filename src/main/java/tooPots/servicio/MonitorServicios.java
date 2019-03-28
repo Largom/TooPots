@@ -50,6 +50,17 @@ public class MonitorServicios implements MonitorSv{
         return certs;
     }
 
+    public Map<Integer, List<Certificado>> getcertificadosMonitores(){
+
+        List<Monitor> monitores = monitordao.listaMonitores();
+        Map<Integer, List<Certificado>> certs = new HashMap<>();
+        for(Monitor m : monitores) {
+            if(!certificadodao.consultaCertificadosMonitor(m.getId_monitor()).isEmpty())
+                certs.put(m.getId_monitor(), certificadodao.consultaCertificadosMonitor(m.getId_monitor()));
+        }
+        return certs;
+    }
+
     public List<Certificado> getcertificadosSolicitud(int id_solicitud){
         return certificadodao.consultaCertificadosSolicitud(id_solicitud);
     }

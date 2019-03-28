@@ -38,7 +38,7 @@ public class MonitorDao {
 
     //Buscamos solicitud monitor
     public Monitor busquedaSolicitud(int id_monitor){
-        return jdbcTemplate.queryForObject("SELECT * from solicitud_monitor WHERe id_monitor=?",
+        return jdbcTemplate.queryForObject("SELECT * from solicitud_monitor WHERE id_monitor=?",
                 new MonitorRowMapper() , id_monitor);
     }
 
@@ -56,7 +56,7 @@ public class MonitorDao {
         jdbcTemplate.update("DELETE from monitor where id_monitor=?", monitor);
     }
 
-    // Borrado de un monitor
+    // Borrado de un monitor en una solicitud
     public void borrarSolicitud(int monitor) {
         jdbcTemplate.update("DELETE from solicitud_monitor where id_monitor=?", monitor);
     }
@@ -69,7 +69,7 @@ public class MonitorDao {
                 monitor.getCuentaBancaria(), monitor.getObservaciones(), monitor.getId_monitor());
     }
 
-    //Busqueda y seleccion monitor
+    //Busqueda y seleccion monitor en MONITOR
     public Monitor consultaMonitor(int id_monitor) {
         try {
             return jdbcTemplate.queryForObject("SELECT * from monitor WHERE id_monitor=?",
@@ -78,6 +78,7 @@ public class MonitorDao {
             return null;
         }
     }
+
 
     //Lista monitores
     public List<Monitor> listaMonitores() {

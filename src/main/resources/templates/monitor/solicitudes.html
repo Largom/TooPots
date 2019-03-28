@@ -13,7 +13,7 @@
     <h2>Solicitud inscripción monitor</h2>
     <br>
     <form class="form-horizontal" action="#" th:action="@{/monitor/solicitud}"
-          th:object="${monitor}" method="post">
+          th:object="${monitor}" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="nombre">Nombre:</label>
@@ -49,7 +49,10 @@
             </div>
         </div>
 
-
+        <div class="form-group">
+            <td>Selecciona fichero: </td>
+            <td><input type="file" name="fichero"></td>
+        </div>
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="observaciones">Observaciones:</label>

@@ -56,10 +56,14 @@ public class CertificadoDao {
     }
 
     //Busqueda y seleccion de certificados de un monitor
-    public List<Certificado> consultaCertificadosMonitor(String id_monitor) {
+    public List<Certificado> consultaCertificadosMonitor(int id_monitor) {
         try {
-            return jdbcTemplate.query("SELECT * from certificados_monitor WHERE id_monitor=?",
+            List<Certificado> resultado = new ArrayList<>();
+            List<Certificado> codigos = jdbcTemplate.query("SELECT * from certificados_monitor WHERE id_monitor=?",
                     new CertificadoRowMapper(), id_monitor);
+            for(Certificado c: codigos)
+                resultado.add(buscaCertificado(c.getId_certificado()));
+            return resultado;
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Certificado>();
         }
@@ -73,7 +77,6 @@ public class CertificadoDao {
             for(Certificado c: codigos)
                 resultado.add(buscaCertificado(c.getId_certificado()));
             return resultado;
-
 
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Certificado>();

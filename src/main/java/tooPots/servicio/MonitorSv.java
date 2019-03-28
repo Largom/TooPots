@@ -12,5 +12,7 @@ public interface MonitorSv {
     public void añadircertificadosDeSolicitudes(int id_solicitud, List<String> certificados);
     public void añadircertificadosDeMonitor(int id_monitor, List<Certificado> certificados);
     public Map<Integer, List<Certificado>> getcertificadosSolicitud();
+    public  Map<Integer, List<Certificado>> getcertificadosMonitores();
     public List<Certificado> getcertificadosSolicitud(int id_solicitud);
+
 }
