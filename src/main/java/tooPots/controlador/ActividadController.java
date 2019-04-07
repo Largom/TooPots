@@ -15,3 +15,4 @@ public class ActividadController {
     @Autowired
     public void setMonitor(ActividadDao actividadDao) { this.actividadDao= actividadDao; }
 }
+
