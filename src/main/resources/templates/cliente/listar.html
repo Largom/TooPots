@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Clientes</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+
+    <h1 style="text-align:center;">Listado clientes</h1>
+
+    <div class="container-fluid" style="text-align:left; width:80%; margin-top: 1.2%;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="col-md-3">Nombre</th>
+            <th>DNI</th>
+            <th class="col-md-3">Email</th>
+            <th>Sexo</th>
+            <th class="col-md-3">Año de nacimiento</th>            
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cliente: ${clientes}">
+            <td th:text="${cliente.nombre}"></td>
+            <td th:text="${cliente.nif}"></td>
+            <td th:text= "${cliente.email}"></td>
+ 			<td th:text= "${cliente.sexo}"></td>
+            <td th:text="${cliente.anyoNacimiento}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+</body>
+</html>
