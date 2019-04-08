@@ -43,7 +43,7 @@ public class ActividadController {
            return "redirect:../list"; 
 	}
 	
-
+	
     
 }
 
