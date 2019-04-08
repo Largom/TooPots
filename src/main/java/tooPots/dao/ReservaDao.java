@@ -1,9 +1,13 @@
 package tooPots.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import tooPots.modelo.Reserva;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -21,6 +25,18 @@ public class ReservaDao {
     }
 
 
+    //Lista reservas de un cliente
+    public List<Reserva> listaReservas(int id_cliente) {
+        try {
+            return jdbcTemplate.query("SELECT * from reserva WHERE id_cliente=?", 
+            		new ReservaRowMapper(), id_cliente);
+            
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Reserva>();
+        }
+    }
+    
+    
     //Buscamos id solicitud monitor
     public Reserva busquedaReserva(int id_reserva){
         return jdbcTemplate.queryForObject("SELECT * from reserva WHERE id_reserva=?",
