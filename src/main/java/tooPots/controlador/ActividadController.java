@@ -33,7 +33,7 @@ public class ActividadController {
 //	}
 	
 	@RequestMapping(value="/update/{nom}", method = RequestMethod.GET) 
-	public String editNadador(Model model, @PathVariable int id) { 
+	public String editNadador(Model model, @PathVariable  int id) { 
 		model.addAttribute("actividad", actividadDao.busquedaActividad(id));
 		return "actividad/update"; 
 	}

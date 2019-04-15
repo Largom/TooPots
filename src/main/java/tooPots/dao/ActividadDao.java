@@ -40,4 +40,9 @@ public class ActividadDao {
         jdbcTemplate.update("DELETE from actividad where id_actividad=?", id_actividad);
     }
 
+	public void addActividad(Actividad actividad) {
+		// TODO recibes una actividad y la creas en la base de datos 
+		
+	}
+
 }
