@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<head>
+    <title>Solicitudes monitor</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <h1 class="titulos">Listado solicitudes para monitores</h1>
+
+    <div class="container-fluid" style="width:100%; margin-top: 1.2%;">
+        <table class="table">
+            <thead>
+            <tr style="text-align:center; background-color:  #d4e4f0 ;">
+                <th class="col-md-3">Datos</th>
+                <th>Certificados</th>
+                <th class="col-md-6">Clasificar experiencia</th>
+                <th class="col-md-2">Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="monitor: ${monitores}">
+                <td>
+                    <ul>
+                        <li type="circle"><i class="listado">Nombre:</i><p th:text="${monitor.nombre}"/></li>
+                        <li type="circle"><i class="listado">N.I.F:</i><p th:text="${monitor.nif}"/></li>
+                        <li type="circle"><i class="listado">Correo electronico:</i><p th:text= "${monitor.email}"/></li>
+                        <li type="circle"><i class="listado">Observaciones:</i><p th:text= "${monitor.observaciones}"/></li>
+                    </ul>
+                </td>
+
+                <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
+
+                <td>
+                    <div class="container">
+
+                            <form action="#" th:action="@{/monitor/clasificar/{id_monitor}(id_monitor=${monitor.id_monitor})}" th:object="${clasificaciones}" method="post">
+                                <div class="btn-group">
+                                    <label class="control-label col-sm-2">Tipo</label>
+                                    <select class="form-control" th:field="*{descripcion_tipo}">
+                                        <option th:each="t : ${clasificaciones.getTipos()}"
+                                                th:value="${t}"
+                                                th:text="${t}">
+                                        </option>
+                                    </select>
+
+                                    <label class="control-label col-sm-2">Nivel</label>
+                                    <select class="form-control" th:field="*{descripcion_nivel}">
+                                        <option th:each="n : ${clasificaciones.getNiveles()}"
+                                                th:value="${n}"
+                                                th:text="${n}">
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-outline-success btn-sm" style="margin-left:5%;">Añadir</button>
+                                </div>
+                            </form>
+
+                        <div th:if="${clasif != null && monitor.id_monitor==monitorClas}">
+                            <ul th:each="c : ${clasif}">
+                                <li class="clasificacion" >Tipo: <i th:text ="${c.getDescripcion_tipo()}"/> --- Nivel: <i th:text="${c.getDescripcion_nivel()}"/></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </td>
+
+
+                <div class="btn-toolbar">
+                    <div class="btn-group" role="group">
+                            <td><a th:href="@{/monitor/solicitud/aprobada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning btn-sm" role="button">Aceptar</a>
+                                <a th:href="@{/monitor/solicitud/denegada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger btn-sm" role="button">Denegar</a></td>
+                    </div>
+                </div>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

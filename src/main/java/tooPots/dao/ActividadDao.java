@@ -2,10 +2,13 @@ package tooPots.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import tooPots.modelo.Actividad;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ActividadDao {
@@ -40,4 +43,26 @@ public class ActividadDao {
         jdbcTemplate.update("DELETE from actividad where id_actividad=?", id_actividad);
     }
 
+
+    public void addActividad(Actividad actividad) {
+        // TODO recibes una actividad y la creas en la base de datos
+
+    }
+
+
+
+    public List<String> getTipoActividad(){
+
+        List<String> actividad =  jdbcTemplate.queryForList("SELECT descripcion from tipo_actividad", String.class);
+
+        return actividad;
+    }
+
+
+    public List<String> getNiveles(){
+
+        List<String> niveles =  jdbcTemplate.queryForList("SELECT descripcion from tipo_nivel", String.class);
+
+        return niveles;
+    }
 }

@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:object="${session}">
+    <div th:if="*{role.equals('ADMINISTRADOR')}">
+        <ul class="navbar-nav" >
+                <li class="nav-item" ><a class="nav-link" href="cliente/listar" th:href="@{/cliente/listar}">Ver clientes</a></li>
+                <li class="nav-item" ><a class="nav-link" href="#" th:href="@{#}">Ver actividades</a></li>
+                <li class="nav-item" ><a class="nav-link" href="monitor/listar" th:href="@{/monitor/listar}">Ver monitores</a></li>
+                <li class="nav-item" ><a class="nav-link" href="monitor/pendientes" th:href="@{/monitor/pendientes}">Ver solicitudes</a></li>
+        </ul>
+    </div>
+    <div th:if="*{role.equals('CLIENTE')}">
+        <ul class="navbar-nav" >
+                <li class="nav-item" ><a class="nav-link" href="cliente/perfil" th:href="@{/cliente/perfil}">Mi perfil</a></li>
+                <li class="nav-item" ><a class="nav-link" href="cliente/reservas" th:href="@{/cliente/resevas}">Mis reservas</a></li>
+                <li class="nav-item" ><a class="nav-link" href="" th:href="@{#}">Ver actividades</a></li>
+        </ul>
+    </div>
+    <div th:if="*{role.equals('MONITOR')}">
+        <ul class="navbar-nav" >
+            <li class="nav-item" ><a class="nav-link" href="monitor/perfil" th:href="@{/monitor/perfil/}+*{usuario.usuario}">Mi perfil</a></li>
+            <li class="nav-item" ><a class="nav-link" href="#" th:href="@{#}">Mis actividades</a></li>
+        </ul>
+    </div>
+</nav>

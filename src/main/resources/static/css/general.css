@@ -1,0 +1,39 @@
+.loggeduser {
+    color: #2874a6;
+    font-weight: bold;
+    text-align:right;
+    margin-right: 10pt;
+}
+
+
+.error {
+     color: red;
+     font-weight: bold;
+     font-size:50%
+}
+
+.needcorrection {
+     color: red;
+     background-color:yellow;
+}
+
+.listado{
+    font-weight: bold;
+    text-align:left;
+}
+
+
+.titulos{
+
+	    font-family: 'Catamaran', sans-serif;
+    	font-size: 30px;
+    	padding: 20px 40px;
+    	text-align:left;
+
+ }
+
+.clasificacion{
+        color: grey;
+        font-weight: bold;
+        text-align: center
+}

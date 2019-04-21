@@ -1,33 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
 <head>
     <title>Monitores</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<div layout:fragment="content">
 
-    <h1 th:if="${solicitudesPendientes.equals('false')}" style="text-align:center;">Listado monitores</h1>
-    <h1 th:if="${solicitudesPendientes.equals('true')}" style="text-align:center;">Listado solicitudes para monitores</h1>
+    <h1 class="titulos" >Listado monitores</h1>
 
-    <div class="container-fluid" style="text-align:left; width:80%; margin-top: 1.2%;">
+    <div class="container-fluid" style="width:100%; margin-top: 1.2%;">
     <table class="table">
         <thead>
-        <tr>
-            <th class="col-md-2">Nombre</th>
-            <th>DNI</th>
-            <th>Email</th>
-            <th class="col-md-3">Certificaciones</th>
-            <th class="col-md-3">Observaciones</th>
-            <th class="col-md-3">Opciones</th>
+        <tr style="text-align:center; background-color:  #d4e4f0 ;">
+            <th class="col-md-3">Datos</th>
+            <th>Certificados</th>
+            <th class="col-md-6">Categorias reconocidas</th>
+            <th class="col-md-2">Opciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="monitor: ${monitores}">
-            <td th:text="${monitor.nombre}"></td>
-            <td th:text="${monitor.nif}"></td>
-            <td th:text= "${monitor.email}"></td>
             <td>
+                <ul>
+                    <li type="circle"><i class="listado">Nombre:</i><p th:text="${monitor.nombre}"/></li>
+                    <li type="circle"><i class="listado">N.I.F:</i><p th:text="${monitor.nif}"/></li>
+                    <li type="circle"><i class="listado">Correo electronico:</i><p th:text= "${monitor.email}"/></li>
+                    <li type="circle"><i class="listado">Observaciones:</i><p th:text= "${monitor.observaciones}"/></li>
+                </ul>
+            </td>
+
+            <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
+
+            <!-- no borrarlo por si lo llegamos a necesitar.
+
             <th:block th:each="m : ${certificados.keySet()}">
                 <div th:if ="${m==monitor.id_monitor}">
                     <table class="table">
@@ -38,31 +48,29 @@
                         </tr>
                     </table>
                 </div>
-            </th:block>
-
+            </th:block> -->
+            <td>
+                <th:block th:each="m : ${clasificacionesMonitores.keySet()}">
+                    <div th:if ="${m==monitor.id_monitor}">
+                        <ul th:each ="clas : ${clasificacionesMonitores.get(m)}" >
+                            <li class="clasificacion" >Tipo: <i th:text ="${clas.getDescripcion_tipo()}"/> --- Nivel: <i th:text="${clas.getDescripcion_nivel()}"/></li>
+                        </ul>
+                    </div>
+                </th:block>
             </td>
-            <td th:text="${monitor.observaciones}"></td>
 
             <div class="btn-toolbar">
-            <div th:if="${solicitudesPendientes.equals('false')}">
                 <div class="btn-group" role="group">
-                <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Actualizar</a>
-                    <a th:href="@{/monitor/elimina/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Borrar</a></td>
+                    <td><a th:href="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning btn-sm" role="button">Actualizar</a>
+                        <a th:href="@{/monitor/elimina/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger btn-sm" role="button">Borrar</a></td>
                 </div>
             </div>
 
-            <div th:if="${solicitudesPendientes.equals('true')}">
-                <div class="btn-group" role="group">
-                    <td><a th:href="@{/monitor/solicitud/aprobada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-warning" role="button">Aceptar</a>
-                    <a th:href="@{/monitor/solicitud/denegada/{id_monitor}(id_monitor=${monitor.id_monitor})}" class="btn btn-danger" role="button">Denegar</a></td>
-                 </div>
-            </div>
-            </div>
 
         </tr>
         </tbody>
     </table>
     </div>
-
+</div>
 </body>
 </html>

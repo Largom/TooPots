@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+
+
+
+    <title layout:title-pattern="$CONTENT_TITLE">TooPots</title>
+</head>
+
+<body class="container">
+<header class="page-header"style="background-color:#E9967A">
+    <div th:replace="fragments/logininfo"></div>
+</header>
+
+<div th:replace="fragments/nav"></div>
+<div layout:fragment="content"></div>
+<footer>
+    <hr>
+    <p class="text-muted">Toopots - Tu club de aventuras</p>
+</footer>
+</body>
+</html>

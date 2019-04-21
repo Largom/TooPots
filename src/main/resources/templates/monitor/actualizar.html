@@ -13,7 +13,7 @@
     <h2>¿Desea cambiar algún dato?</h2>
     <br>
 
-    <form class="form-horizontal" action="#" th:action="@{/monitor/actualiza/{id_monitor}(id_monitor=${monitor.id_monitor})}"
+    <form class="form-horizontal" action="#" th:action="@{/monitor/actualiza/{correoUsuario}(correoUsuario=${monitor.email})}"
           th:object="${monitor}" method="POST">
 
         <div class="form-group row">

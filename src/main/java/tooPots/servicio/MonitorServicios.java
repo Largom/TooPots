@@ -2,15 +2,15 @@ package tooPots.servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tooPots.dao.ActividadDao;
 import tooPots.dao.CertificadoDao;
 import tooPots.dao.MonitorDao;
 import tooPots.modelo.Certificado;
+import tooPots.modelo.Clasificacion;
 import tooPots.modelo.Monitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.rmi.CORBA.ClassDesc;
+import java.util.*;
 
 
 @Service
@@ -20,6 +20,8 @@ public class MonitorServicios implements MonitorSv{
     private CertificadoDao certificadodao;
     @Autowired
     private MonitorDao monitordao;
+    @Autowired
+    private ActividadDao actividaddao;
 
 
     public List<Certificado> certificadosMonitor(){
@@ -38,6 +40,7 @@ public class MonitorServicios implements MonitorSv{
         for(Certificado c: certificados){
             certificadodao.añadirCertificadoMonitor(c, id_monitor);}
     }
+
 
     public Map<Integer, List<Certificado>> getcertificadosSolicitud(){
 
@@ -66,4 +69,74 @@ public class MonitorServicios implements MonitorSv{
     }
 
 
+    public List<String> getTiposActividad(){
+        return actividaddao.getTipoActividad();
+    }
+
+    public List<String> getNiveles(){
+        return actividaddao.getNiveles();
+    }
+
+    public void añadirClasificacion(int id_monitor, String tipo, int nivel){
+         monitordao.añadirClasificacion(id_monitor, tipo, nivel);
+    }
+
+    public void añadirClasificacionAMonitor(int monitor, List<Clasificacion> clasificaciones){
+
+        monitordao.añadirClasificacionesMonitor(monitor, clasificaciones);
+    }
+
+    public List<Clasificacion> getClasificacion(int id_monitor){
+
+        List<Clasificacion> clasificacionDescripcion = new LinkedList();
+        List<Clasificacion> clasificacionesID = monitordao.getClasificacion(id_monitor);
+        for (Clasificacion clas: clasificacionesID) {
+            Clasificacion cDescripcion = new Clasificacion();
+            String tipoDescripcion = monitordao.getDescripcionTipo(clas.getId_tipo());
+            String nivelDescripcion = monitordao.getDescripcionNivel(clas.getId_nivel());
+            cDescripcion.setId_tipo(clas.getId_tipo());
+            cDescripcion.setDescripcion_tipo(tipoDescripcion);
+            cDescripcion.setId_nivel(clas.getId_nivel());
+            cDescripcion.setDescripcion_nivel(nivelDescripcion);
+            clasificacionDescripcion.add(cDescripcion);
+        }
+
+        return clasificacionDescripcion;
+    }
+
+    public List<Clasificacion> getClasificacionM(int id_monitor){
+
+        List<Clasificacion> clasificacionDescripcion = new LinkedList();
+        List<Clasificacion> clasificacionesID = monitordao.getClasificacionMonitor(id_monitor);
+        for (Clasificacion clas: clasificacionesID) {
+            Clasificacion cDescripcion = new Clasificacion();
+            String tipoDescripcion = monitordao.getDescripcionTipo(clas.getId_tipo());
+            String nivelDescripcion = monitordao.getDescripcionNivel(clas.getId_nivel());
+            cDescripcion.setId_tipo(clas.getId_tipo());
+            cDescripcion.setDescripcion_tipo(tipoDescripcion);
+            cDescripcion.setId_nivel(clas.getId_nivel());
+            cDescripcion.setDescripcion_nivel(nivelDescripcion);
+            clasificacionDescripcion.add(cDescripcion);
+        }
+
+        return clasificacionDescripcion;
+    }
+
+    public Map<Integer,List<Clasificacion>> getClasificacionesMonitores() {
+
+        List<Monitor> monitores = monitordao.listaMonitores();
+        Map<Integer, List<Clasificacion>> certificadosMonitores = new HashMap<>();
+
+        try {
+            for (Monitor m : monitores)
+                certificadosMonitores.put(m.getId_monitor(), this.getClasificacionM(m.getId_monitor()));
+            return certificadosMonitores;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void borrarClasificaciones(int monitor){
+        monitordao.borrarClasificaciones(monitor);
+    }
 }
