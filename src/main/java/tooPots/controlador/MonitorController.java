@@ -136,7 +136,7 @@ public class MonitorController {
         if (bindingResult.hasErrors()){
             return "monitor/actualiza/"+correoUsuario;
         }
-       monitorDao.actualizaMonitor(monitor);
+        monitorDao.actualizaMonitor(monitor);
         return "redirect:../listar";
     }
 

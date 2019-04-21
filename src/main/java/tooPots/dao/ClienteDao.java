@@ -25,6 +25,7 @@ public class ClienteDao {
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
+    
 
     //Anyadimos Cliente
     public void anyadeCliente(Cliente cliente) {
@@ -42,13 +43,11 @@ public class ClienteDao {
 
     }
 
-
     //Actualizar cliente
-    public void actualizarCliente(Cliente cliente){
+    public void actualizarCliente(Cliente cliente) {
         jdbcTemplate.update("UPDATE cliente SET nombre = ?, nif=?, sexo=?, añonacimiento=?, email=?",
                 cliente.getNombre(), cliente.getnif(), cliente.getSexo(), cliente.getanyo_nacimiento(),
                 cliente.getEmail());
-
     }
 
     // Borrado de cliente
@@ -56,7 +55,7 @@ public class ClienteDao {
         jdbcTemplate.update("DELETE from cliente where id_cliente=?", id_cliente);
     }
 
-
+    
     //Lista clientes
     public List<Cliente> listaClientes() {
         try {
@@ -65,5 +64,7 @@ public class ClienteDao {
             return new ArrayList<Cliente>();
         }
     }
+
+
 
 }

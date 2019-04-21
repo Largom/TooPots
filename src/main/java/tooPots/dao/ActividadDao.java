@@ -44,12 +44,11 @@ public class ActividadDao {
     }
 
 
+
     public void addActividad(Actividad actividad) {
         // TODO recibes una actividad y la creas en la base de datos
 
     }
-
-
 
     public List<String> getTipoActividad(){
 
@@ -65,4 +64,5 @@ public class ActividadDao {
 
         return niveles;
     }
+
 }

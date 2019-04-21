@@ -28,6 +28,7 @@ public class ReservaDao {
     //Lista reservas de un cliente
     public List<Reserva> listaReservas(int id_cliente) {
         try {
+
             return jdbcTemplate.query("SELECT * from reserva WHERE id_cliente=?",
                     new ReservaRowMapper(), id_cliente);
 
@@ -35,7 +36,6 @@ public class ReservaDao {
             return new ArrayList<Reserva>();
         }
     }
-
 
     //Buscamos id solicitud monitor
     public Reserva busquedaReserva(int id_reserva){
@@ -53,7 +53,7 @@ public class ReservaDao {
 
     // Borrado de reserva
     public void borrarReserva(int id_reserva) {
-        jdbcTemplate.update("DELETE from resera where id_reserva=?", id_reserva);
+        jdbcTemplate.update("DELETE from reserva where id_reserva=?", id_reserva);
     }
 
 }

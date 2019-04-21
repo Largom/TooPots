@@ -17,7 +17,7 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
 
         try {
             cliente.setSexo(rs.getString("sexo"));
-            cliente.setanyo_nacimiento((rs.getInt("anyo_nacimiento")));
+            cliente.setanyo_nacimiento((rs.getInt("añonacimiento")));
             cliente.setEmail(rs.getString("email"));
         }
         catch (Exception e){}

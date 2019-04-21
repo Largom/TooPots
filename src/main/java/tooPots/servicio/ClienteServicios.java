@@ -1,4 +1,3 @@
-
 package tooPots.servicio;
 
 import java.util.List;
@@ -9,9 +8,11 @@ import org.springframework.stereotype.Service;
 import tooPots.dao.ClienteDao;
 import tooPots.dao.ReservaDao;
 import tooPots.modelo.Reserva;
+import tooPots.servicio.ClienteSv;
 
 @Service
-public class ClienteServicios implements ClienteSv{
+public class ClienteServicios implements ClienteSv {
+
 
     @Autowired
     private ClienteDao clientedao;
@@ -38,3 +39,4 @@ public class ClienteServicios implements ClienteSv{
     }
 
 }
+
