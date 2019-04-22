@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import tooPots.dao.UsuarioDao;
 import tooPots.modelo.Usuario;
+import tooPots.servicio.UsuarioSv;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,8 +42,40 @@ public class LoginController {
     @Autowired
     private UsuarioDao usuarioDao;
 
+    @Autowired
+    private UsuarioSv usuariosv;
+
     @RequestMapping("/")
-    public String login(Model model) {
+    public String login(Model model, HttpSession session) {
+
+        if(session.getAttribute("usuario")!=null){
+
+
+            Usuario user = (Usuario)session.getAttribute("usuario");
+            if(user.getRole()=="ADMINISTRADOR"){
+                model.addAttribute("solicitudes", usuariosv.cantidadSolicitudes());
+                model.addAttribute("monitores", usuariosv.cantidadMonitores());
+                model.addAttribute("actividades", usuariosv.cantidadActividades());
+                model.addAttribute("reservasTramitadas",usuariosv.cantidadReservasOK());
+                model.addAttribute("reservasPendientes", usuariosv.cantidadReservasKO());
+            }
+
+            if(user.getRole()=="MONITOR"){
+                model.addAttribute("actividades", usuariosv.cantidadActividadesAltaMonitor(3));
+                model.addAttribute("reservasRevisar",usuariosv.cantidadReservasPorRevisar(3));
+                model.addAttribute("reservasTramitadas",usuariosv.cantidadReservasMonitorOK(3));
+                model.addAttribute("reservasPendientes", usuariosv.cantidadReservasMonitorKO(3));
+
+            }
+
+            if(user.getRole()=="CLIENTE"){
+                model.addAttribute("actividades", usuariosv.cantidadActividades());
+                model.addAttribute("reservasTramitadas",usuariosv.cantidadReservasClienteOK(3));
+                model.addAttribute("reservasPendientes", usuariosv.cantidadReservasClienteKO(3));
+
+            }
+            return "logueado";
+        }
         model.addAttribute("user", new Usuario());
         return "home";
     }

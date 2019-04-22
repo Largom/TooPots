@@ -4,8 +4,7 @@
       layout:decorate="~{fragments/base}">
 
 <head>
-
-    <title>Login</title>
+    <title>Inicio</title>
     <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
     <meta charset="UTF-8"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -15,7 +14,56 @@
 
 <div layout:fragment="content">
 
+    <th:block th:object="${session}">
 
+        <div th:if="*{role.equals('ADMINISTRADOR')}">
+            <h1 class="titulos">Bienvenido</h1>
+            <div class="container">
+                <p style="margin-left: 2%"><strong>Resumen actualizado</strong></p>
+                <table class="table" style="width:40%; margin-top: 1.2%; margin-left: 2%;">
+                    <tbody>
+                    <tr><td>Número actividades existentes: </td></tr>
+                    <tr><td>Número monitores existentes:</td></tr>
+                    <tr class="table-warning"><td>Número solicitudes de monitor pendientes de tramitar: </td></tr>
+                    <tr class="table-success"><td>Número de reservas tramitadas: </td></tr>
+                    <tr class="table-danger"><td>Número de reservas pendientes pago: </td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div th:if="*{role.equals('CLIENTE')}">
+            <h1 class="titulos">Bienvenido</h1>
+            <div class="container">
+                <p style="margin-left: 2%"><strong>Resumen actualizado</strong></p>
+                <table class="table" style="width:40%; margin-top: 1.2%; margin-left: 2%;">
+                    <tbody>
+                        <tr><td>Número actividades existentes: </td></tr>
+                        <tr><td>Número de reservas tramitadas: </td></tr>
+                        <tr class="table-danger"><td>Número de reservas pendientes pago: </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div th:if="*{role.equals('MONITOR')}">
+            <h1 class="titulos">Bienvenido</h1>
+            <div class="container">
+                <p style="margin-left: 2%"><strong>Resumen actualizado</strong></p>
+                <table class="table" style="width:40%; margin-top: 1.2%; margin-left: 2%;">
+                    <tbody>
+                        <tr><td>Número actividades dadas de alta : </td></tr>
+                        <tr class="table-success"><td>Número de reservas tramitadas:</td></tr>
+                        <tr class="table-danger"><td>Número de reservas pendientes pago: </td></tr>
+                        <tr class="table-warning"><td>Número de reservas pendientes revisar: </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </th:block>
 </div>
 </body>
 </html>

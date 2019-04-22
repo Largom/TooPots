@@ -1,77 +1,81 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
 <head>
-    <title>Perfil monitor</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <title>Monitores</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
+
 <body>
-<div class="container">
-    <br>
-    <h2>¿Desea cambiar algún dato?</h2>
-    <br>
+<div layout:fragment="content">
+    <div class="container">
+        <br>
+        <h2>¿Desea cambiar algún dato?</h2>
+        <br>
 
-    <form class="form-horizontal" action="#" th:action="@{/monitor/actualiza/{correoUsuario}(correoUsuario=${monitor.email})}"
-          th:object="${monitor}" method="POST">
+        <form class="form-horizontal" action="#" th:action="@{/monitor/actualiza/{correoUsuario}(correoUsuario=${monitor.email})}"
+              th:object="${monitor}" method="POST">
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="nombre">Nombre:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="nif">N.I.F:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="nif" th:field="*{nif}">
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="nif">N.I.F:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="nif" th:field="*{nif}">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="correo">Correo electrónico:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="correo" th:field="*{email}"/>
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="correo">Correo electrónico:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="correo" th:field="*{email}"/>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="cuentaBancaria">Correo electrónico:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="cuentaBancaria" th:field="*{cuentaBancaria}"/>
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="cuentaBancaria">Correo electrónico:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="cuentaBancaria" th:field="*{cuentaBancaria}"/>
+                </div>
             </div>
-        </div>
 
 
 
-        <div class="form-group row ">
-            <label class="control-label col-sm-2 ">Certificados </label>
-            <div class="col-sm-4">
-                <select class="form-control" th:field="*{certificados}">
-                    <option th:each="certificado : ${certificados}"
-                            th:value="${certificado.id_certificado}"
-                            th:text="${certificado.descripcion}">Wireframe</option>
-                </select>
+            <div class="form-group row ">
+                <label class="control-label col-sm-2 ">Certificados </label>
+                <div class="col-sm-4">
+                    <select class="form-control" th:field="*{certificados}">
+                        <option th:each="certificado : ${certificados}"
+                                th:value="${certificado.id_certificado}"
+                                th:text="${certificado.descripcion}">Wireframe</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
 
 
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="observaciones">Observaciones:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="observaciones" th:field="*{observaciones}"/>
+            <div class="form-group row">
+                <label class="control-label col-sm-2" for="observaciones">Observaciones:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="observaciones" th:field="*{observaciones}"/>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <button type="submit" class="btn btn-success">Actualizar</button>
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-4">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
             </div>
-        </div>
 
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

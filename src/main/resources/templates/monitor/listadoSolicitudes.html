@@ -15,8 +15,10 @@
 <div layout:fragment="content">
 
     <h1 class="titulos">Listado solicitudes para monitores</h1>
-
-    <div class="container-fluid" style="width:100%; margin-top: 1.2%;">
+    <div th:if="${monitores.isEmpty()}">
+        <p style="color:#d4e4f0; font-size: large; text-align: center;"><strong>No hay solicitudes de monitor pendientes </strong></p>
+    </div>
+    <div th:unless="${monitores.isEmpty()}" class="container-fluid" style="width:100%; margin-top: 1.2%;">
         <table class="table">
             <thead>
             <tr style="text-align:center; background-color:  #d4e4f0 ;">
