@@ -76,6 +76,7 @@ public class LoginController {
             }
             return "logueado";
         }
+        session=null;
         model.addAttribute("user", new Usuario());
         return "home";
     }

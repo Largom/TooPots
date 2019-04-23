@@ -35,5 +35,11 @@
 .clasificacion{
         color: grey;
         font-weight: bold;
-        text-align: center
+        text-align: center;
+}
+
+.clasificacion2{
+        color: grey;
+        font-weight: bold;
+        text-align: left;
 }

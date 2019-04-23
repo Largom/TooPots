@@ -86,6 +86,12 @@ public class MonitorServicios implements MonitorSv{
         monitordao.añadirClasificacionesMonitor(monitor, clasificaciones);
     }
 
+    public void añadirClasificacionMonitor(int id_monitor, String tipo, int nivel){
+
+        monitordao.añadirClasificacionM(id_monitor, tipo, nivel);
+
+    }
+
     public List<Clasificacion> getClasificacion(int id_monitor){
 
         List<Clasificacion> clasificacionDescripcion = new LinkedList();

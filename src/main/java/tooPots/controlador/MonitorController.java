@@ -75,6 +75,7 @@ public class MonitorController {
             model.addAttribute("monitores", monitorDao.listaMonitores());
             model.addAttribute("certificados", monitorsv.getcertificadosMonitores());
             model.addAttribute("clasificacionesMonitores", monitorsv.getClasificacionesMonitores());
+
             return "monitor/listar";
         }
         else{ return "redirect:/";}
@@ -92,6 +93,7 @@ public class MonitorController {
             //Obtenemos tipos tipo y niveles para poder clasificar la solicitud
             Clasificacion clasificacion = new Clasificacion(monitorsv.getTiposActividad(), monitorsv.getNiveles());
             model.addAttribute("clasificaciones", clasificacion);
+
 
             Integer id_mon = (Integer) session.getAttribute("monitorClas");
             if (id_mon != null) { //Informacion a cargar de las clasificaciones hechas sobre la solicitud.
@@ -165,33 +167,52 @@ public class MonitorController {
 
     //Perfil desde admin
 
-    @RequestMapping(value="/actualiza/{id_monitor}", method = RequestMethod.GET)
-    public String perfilMonitor(Model model, @PathVariable int id_monitor, HttpSession session) {
+    @RequestMapping(value="/actualiza/{id_monitor}")
+    public String actualizaMonitor(Model model, @PathVariable int id_monitor, HttpSession session) {
 
         Usuario user = (Usuario)session.getAttribute("usuario"); //Control usuarios
         if(user.getRole()=="ADMINISTRADOR") {
             Monitor monitor = monitorDao.consultaMonitor(id_monitor);
+            //Obtenemos tipos tipo y niveles para poder mostrar tipos y niveles.
+            Clasificacion clasificacion = new Clasificacion(monitorsv.getTiposActividad(), monitorsv.getNiveles());
+            model.addAttribute("clasificaciones", clasificacion);
             model.addAttribute("monitor", monitor);
+            List<Clasificacion> clasificacionesEXISTENTES = monitorsv.getClasificacionM(id_monitor);
+            model.addAttribute("clasif_EXISTENTES", clasificacionesEXISTENTES);
+
+            Integer id_mon = (Integer) session.getAttribute("monitorACT");
+            if (id_mon != null) { //Informacion a cargar de las clasificaciones hechas sobre la solicitud.
+                session.removeAttribute("monitorACT");
+                List<Clasificacion> clasificaciones = monitorsv.getClasificacion(id_monitor);
+                model.addAttribute("clasif", clasificaciones);
+            }
+
+
             return "monitor/actualizar";
         }
         else{ return "redirect:/";}
     }
 
-
-    @RequestMapping(value="/actualiza/{id_monitor}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id_monitor, @ModelAttribute("monitor") Monitor monitor,Model model,
-                                      BindingResult bindingResult, HttpSession session ) {
+    //Para formulario de actualizacion de las clasificaciones de un monitor
+    @RequestMapping(value="/actualizaClasificacion/{id_monitor}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable int id_monitor, @ModelAttribute("clasificaciones") Clasificacion clasificacion,
+                                      Model model, BindingResult bindingResult , HttpSession session) {
 
         Usuario user = (Usuario)session.getAttribute("usuario"); //Control usuarios
+
         if(user.getRole()=="ADMINISTRADOR") {
-            if (bindingResult.hasErrors()) {
-                return "monitor/actualiza/" + id_monitor;
-            }
-            monitorDao.actualizaMonitor(monitor);
-            return "redirect:../listar";
+
+            //Se extraen id de tipo y nivel a partir de si descripcion seleccionada en el formulario
+            String id_tipo = monitorDao.getIDTipo(clasificacion.getDescripcion_tipo());
+            int id_nivel = monitorDao.getIDNivel(clasificacion.getDescripcion_nivel());
+            session.setAttribute("monitorACT", id_monitor);
+            monitorDao.añadirClasificacionM(id_monitor, id_tipo, id_nivel);
+            return "redirect:/monitor/actualiza/"+id_monitor;
+
         }
         else{ return "redirect:/";}
     }
+
 
 
     //Elimina monitor
@@ -247,26 +268,22 @@ public class MonitorController {
 
     }
 
+    //Para formulario de clasificacion de las solicitudes de monitor.
+    @RequestMapping(value="/clasificar/{id_solicitud_monitor}", method = RequestMethod.POST)
+    public String processUpdateSubmit(@PathVariable int id_solicitud_monitor, @ModelAttribute("clasificaciones") Clasificacion clasificacion,
+                                      HttpSession session, Model model, BindingResult bindingResult ) {
 
-    @RequestMapping(value="/clasificar/{id_monitor}", method = RequestMethod.POST)
-    public String processUpdateSubmit(@PathVariable int id_monitor, @ModelAttribute("clasificaciones") Clasificacion clasificacion,
-                                      Model model, BindingResult bindingResult , HttpSession session) {
 
-       /* if (bindingResult.hasErrors()){
-            return "monitor/actualiza/"+correoUsuario;
-        }*/
-        //monitorDao.actualizaMonitor(monitor);
         Usuario user = (Usuario)session.getAttribute("usuario"); //Control usuarios
-        if(user.getRole()=="ADMINISTRADOR") {
-            session.setAttribute("monitorClas", id_monitor);
 
-            //Se extraen id de tipo y nivel a partir de si descripcion seleccionada en el formulario
+        if(user.getRole()=="ADMINISTRADOR") {
+
             String id_tipo = monitorDao.getIDTipo(clasificacion.getDescripcion_tipo());
             int id_nivel = monitorDao.getIDNivel(clasificacion.getDescripcion_nivel());
-
-            monitorsv.añadirClasificacion(id_monitor, id_tipo, id_nivel);
-
+            session.setAttribute("monitorClas", id_solicitud_monitor);
+            monitorsv.añadirClasificacion(id_solicitud_monitor, id_tipo, id_nivel);
             return "redirect:/monitor/pendientes";
+
         }
         else{ return "redirect:/";}
     }

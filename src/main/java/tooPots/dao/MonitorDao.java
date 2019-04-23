@@ -117,6 +117,10 @@ public class MonitorDao {
         jdbcTemplate.update("INSERT INTO categoria_solicitudes_monitor VALUES (?,?,?)", monitor, tipo, nivel);
     }
 
+    public void añadirClasificacionM(int monitor, String tipo, int nivel) {
+        jdbcTemplate.update("INSERT INTO categoria_monitor VALUES (?,?,?)", monitor, tipo, nivel);
+    }
+
     public void borrarClasificaciones(int monitor){
 
         jdbcTemplate.update("DELETE FROM categoria_solicitudes_monitor WHERE id_monitor=?",monitor);

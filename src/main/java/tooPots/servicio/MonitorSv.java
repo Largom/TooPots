@@ -19,6 +19,7 @@ public interface MonitorSv {
     public List<String> getNiveles();
     public void añadirClasificacion(int monitor, String tipo, int nivel);
     public void añadirClasificacionAMonitor(int monitor, List<Clasificacion> clasificaciones);
+    public void añadirClasificacionMonitor(int monitor, String tipo, int nivel);
     public void borrarClasificaciones(int monitor);
     public List<Clasificacion> getClasificacion(int id_monitor);
     public Map<Integer,List<Clasificacion>> getClasificacionesMonitores();

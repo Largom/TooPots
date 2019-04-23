@@ -44,7 +44,7 @@
                 <td>
                     <div class="container">
 
-                            <form action="#" th:action="@{/monitor/clasificar/{id_monitor}(id_monitor=${monitor.id_monitor})}" th:object="${clasificaciones}" method="post">
+                            <form action="#" th:action="@{/monitor/clasificar/{id_solicitud_monitor}(id_solicitud_monitor=${monitor.id_monitor})}" th:object="${clasificaciones}" method="post">
                                 <div class="btn-group">
                                     <label class="control-label col-sm-2">Tipo</label>
                                     <select class="form-control" th:field="*{descripcion_tipo}">
