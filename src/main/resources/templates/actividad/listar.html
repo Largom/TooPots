@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
+<head>
+    <title>Actividades</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <h1 class="titulos"> Listado de Actividades</h1>
+    <div th:if="${actividades.isEmpty()}">
+        <p style="color: #d4e4f0; font-size: large; text-align: center;"><strong>No hay actividades publicadas</strong></p>
+    </div>
+    
+        <div th:unless="${actividades.isEmpty()}" class="container-fluid" style="width:100%; margin-top: 1.2%;">
+    <table class="table">
+        
+        <thead>
+        <tr style="text-align:center; background-color:  #d4e4f0 ;">
+            <th class="col-md-5">Datos</th>
+            <th class="col-md-3">Info</th>
+            <th class="col-md-3">Categoria</th>
+            <th class="col-md-2">Reservar</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        <tr th:each="actividad: ${actividades}">
+            <td>
+                <ul>
+                    <li type="circle"><i class="listado">	Nombre:</i><p th:text="${actividad.nombre}"/></li>
+                    <li type="circle"><i class="listado">	Lugar:</i><p th:text="${actividad.lugar}"/></li>
+                    <li type="circle"><i class="listado">	Hora:</i><p th:text= "${{actividad.hora}}"/></li>
+                    <li type="circle"><i class="listado">	Duracion:</i><p th:text= "${{actividad.duracion}}"/></li>
+                    <li type="circle"><i class="listado">	Precio por Persona:</i><p th:text= "${actividad.precio}"/></li>
+                </ul>
+            </td>
+            
+            <td>
+                    <li type="circle"><i class="listado">	Descripcion:</i><p th:text="${actividad.descripcion}"/></li>
+                    <li type="circle"><i class="listado">	Observaciones:</i><p th:text="${actividad.observaciones}"/></li>
+            </td>
+            
+                        <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
+
+  
+
+
+            
+
+
+            <div class="btn-toolbar">
+                <div class="btn-group" role="group">
+                    <!--
+                    <td><a th:href="@{/reserva/reaReserva/{id_cliente}(id_cliente=${cliente.id_monitor})}" class="btn btn-warning btn-sm" role="button">Reservar</a>
+               		-->
+                </div>
+            </div>
+
+
+        </tr>
+        </tbody>
+    </table>
+    </div>
+

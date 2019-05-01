@@ -37,7 +37,7 @@ public class ReservaDao {
         }
     }
 
-    //Buscamos id solicitud monitor
+    //Buscamos id de reserva
     public Reserva busquedaReserva(int id_reserva){
         return jdbcTemplate.queryForObject("SELECT * from reserva WHERE id_reserva=?",
                 new ReservaRowMapper() , id_reserva);

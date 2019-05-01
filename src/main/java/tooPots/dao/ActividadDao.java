@@ -1,12 +1,17 @@
 package tooPots.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import tooPots.modelo.Actividad;
+import tooPots.modelo.Cliente;
 
 import javax.sql.DataSource;
+
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +48,24 @@ public class ActividadDao {
         jdbcTemplate.update("DELETE from actividad where id_actividad=?", id_actividad);
     }
 
-
-
-    public void addActividad(Actividad actividad) {
-        // TODO recibes una actividad y la creas en la base de datos
-
+    // Listar actividades
+    public List<Actividad> listaActividad() {
+        try {
+            return jdbcTemplate.query("SELECT * from actividad", new ActividadRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Actividad>();
+        }
     }
+    
+
+    // Crear actividad
+    public void addActividad(Actividad actividad) {
+    		jdbcTemplate.update("INSERT INTO actividad (nombre, lugar, hora, duracion, descripcion, precio, asistentesMinimos, asistentesMaximos, observaciones, estado)"
+    				+ " VALUES(?, ?, ?, ?,?, ?, ? , ?,?, ?)"
+    				, actividad.getNombre(), actividad.getLugar(), actividad.getHora(), actividad.getDuracion(), actividad.getDescripcion(), actividad.getPrecio(),
+    				actividad.getAsistentesMaximos(), actividad.getAsistentesMinimos(), actividad.getObservaciones(), actividad.getEstado());
+    }
+
 
     public List<String> getTipoActividad(){
 

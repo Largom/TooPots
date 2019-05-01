@@ -9,9 +9,9 @@ public class Actividad {
     private int id_actividad;
     private String nombre;
     private String lugar;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat (pattern = "HH:mm:ss.SSS" )
     private LocalTime hora;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat (pattern = "HH:mm:ss.SSS" )
     private LocalTime duracion;
     private String descripcion;
     private int precio;

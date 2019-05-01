@@ -69,7 +69,7 @@ public class ClienteController {
     }
     
     /*
-     * Inscribirse en una actividad (realizar reserva)
+     *
 		Realizar la reserva te llevara al formulario de reservas.
 		Cancelar incripcion(reserva)
 		Darte de alta como cliente

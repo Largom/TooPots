@@ -1,60 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear nueva Actividad</title>
+    <title>Añadir Actividad</title>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
+
 <body>
-<h2>Nueva Actividad</h2>
-<form action="#" th:action="@{/actividad/add}"
-      th:object="${actividad}" method="post">
-    <table>
-        <tr>
-            <td><label>idActividad</label></td>
-            <td><input type="text" th:field="*{id}" /></td>
-        </tr>
-        <tr>
-            <td><label>nombre</label></td>
-            <td><input type="text" th:field="*{nombre}" /></td>
-        </tr>
-        <tr>
-            <td><label>lugar</label></td>
-            <td><input type="text" th:field="*{lugar}" /></td>
-        </tr>
-        <tr>
-            <td><label>hora</label></td>
-            <td><input type="number" th:field="*{hora}" /></td>
-        </tr>
-        <tr>
-            <td><label>duracion</label></td>
-            <td><input type="text" th:field="*{duracion}" /></td>
-        </tr>
-        <tr>
-            <td><label>descripcion</label></td>
-            <td><input type="text" th:field="*{descrip}" /></td>
-        </tr>
-        <tr>
-            <td><label>precio</label></td>
-            <td><input type="text" th:field="*{€}" /></td>
-        </tr>
-        <tr>
-            <td><label>asistentes minimos</label></td>
-            <td><input type="text" th:field="*{min}" /></td>
-        </tr>
-        <tr>
-            <td><label>asistentes maximos</label></td>
-            <td><input type="text" th:field="*{max}" /></td>
-        </tr>
-        <tr>
-            <td><label>estado</label></td>
-            <td><input type="text" th:field="*{estado}" /></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Añadir Actividad" /></td>
-        </tr>
-    </table>
-</form>
+	<div class="container">
+	    <br>
+			<h2>Añadir nueva actividad</h2>
+	    </br>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="nombre"> Nombre:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="lugar"> Lugar:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="lugar" th:field="*{lugar}">
+            </div>
+        </div>
+        
+         <div class="form-group row">
+            <label class="control-label col-sm-2" for="hora"> Hora:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="hora" th:field="*{hora}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('hora')}" th:errors="*{hora}"></div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="duracion"> Duración:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="duracion" th:field="*{duracion}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></div>
+        </div>
+ 
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="descripcion"> Descripción:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+        </div>
+        
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="duracion"> Duración:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="duracion" th:field="*{duracion}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="precio"> Precio:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="precio" th:field="*{precio}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{v}"></div>
+        </div>
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="asistentesMinimos"> Mínimo de asistentes:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="asistentesMinimos" th:field="*{asistentesMinimos}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('asistentesMinimos')}" th:errors="*{v}"></div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="asistentesMaximos"> Máximo de asistentes:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="asistentesMaximos" th:field="*{asistentesMaximos}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('asistentesMaximos')}" th:errors="*{v}"></div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="estado"> Estado:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="estado" th:field="*{estado}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{v}"></div>
+        </div>
+        
+        <div text-align:center>
+	        <tr>
+	            <td colspan="2"><input type="submit" class="btn btn-success" value="Añadir Actividad" /></td>
+	        </tr>
+	    </div>    
+	       
+	    </table>
+	</form>
 </body>
 </html>

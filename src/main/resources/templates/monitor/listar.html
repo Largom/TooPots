@@ -25,6 +25,7 @@
             <th class="col-md-2">Opciones</th>
         </tr>
         </thead>
+        
         <tbody>
         <tr th:each="monitor: ${monitores}">
             <td>
@@ -51,6 +52,7 @@
                     </table>
                 </div>
             </th:block> -->
+            
             <td>
                 <th:block th:each="m : ${clasificacionesMonitores.keySet()}">
                     <div th:if ="${m==monitor.id_monitor}">
