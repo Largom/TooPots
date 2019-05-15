@@ -13,11 +13,16 @@ public class Clasificacion {
 
     public Clasificacion(){
     }
+    
+    
+    // Tipo para Actividades
     public Clasificacion(String tipo, int nivel) {
         this.id_tipo = tipo;
         this.id_nivel = nivel;
     }
-
+    
+    
+    // Tipo para Certificados
     public Clasificacion(List<String> tipo, List<String> nivel) {
         this.tipos = tipo;
         this.niveles = nivel;

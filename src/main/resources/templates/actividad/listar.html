@@ -11,6 +11,7 @@
 
 <body>
 <div layout:fragment="content">
+<th:block th:object="${session}">
 
     <h1 class="titulos"> Listado de Actividades</h1>
     <div th:if="${actividades.isEmpty()}">
@@ -19,6 +20,10 @@
     
         <div th:unless="${actividades.isEmpty()}" class="container-fluid" style="width:100%; margin-top: 1.2%;">
     <table class="table">
+       
+       
+       
+       <div th:if="*{role != null and role.equals('CLIENTE')}">
         
         <thead>
         <tr style="text-align:center; background-color:  #d4e4f0 ;">
@@ -46,25 +51,66 @@
                     <li type="circle"><i class="listado">	Observaciones:</i><p th:text="${actividad.observaciones}"/></li>
             </td>
             
-                        <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
-
-  
-
-
-            
+            <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
 
 
             <div class="btn-toolbar">
                 <div class="btn-group" role="group">
-                    <!--
-                    <td><a th:href="@{/reserva/reaReserva/{id_cliente}(id_cliente=${cliente.id_monitor})}" class="btn btn-warning btn-sm" role="button">Reservar</a>
-               		-->
+                    <td><a th:href="@{/reserva/reaReserva/{id_actividad}(id_actividad=${actividad.id_actividad})}" class="btn btn-warning btn-sm" role="button">Reservar</a></td>
+                    
+                    
+                    
                 </div>
             </div>
-
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- NOT CLIENTE -->		
+		
+		<div th:if="*{role == null}">
+        
+                
+        <thead>
+        <tr style="text-align:center; background-color:  #d4e4f0 ;">
+        
+    		<th style="width: 27%">Datos</th>
+  			<th style="width: 53%">Info</th>
+  			<th style="width: 20%">Categoria</th>
 
         </tr>
-        </tbody>
+        </thead>
+        
+        <tbody>
+        <tr th:each="actividad: ${actividades}">
+            <td>
+                <ul>
+                    <li type="circle"><i class="listado">	Nombre:</i><p th:text="${actividad.nombre}"/></li>
+                    <li type="circle"><i class="listado">	Lugar:</i><p th:text="${actividad.lugar}"/></li>
+                    <li type="circle"><i class="listado">	Hora:</i><p th:text= "${{actividad.hora}}"/></li>
+                    <li type="circle"><i class="listado">	Duracion:</i><p th:text= "${{actividad.duracion}}"/></li>
+                    <li type="circle"><i class="listado">	Precio por Persona:</i><p th:text= "${actividad.precio}"/></li>
+                </ul>
+            </td>
+            
+            <td>
+                <ul>
+                    <li type="circle"><i class="listado">	Descripcion:</i><p th:text="${actividad.descripcion}"/></li>
+                    <li type="circle"><i class="listado">	Observaciones:</i><p th:text="${actividad.observaciones}"/></li>
+            	</ul>
+            </td>
+            
+            
+            <td> <ul> <a  href="#" class="btn btn-success btn-sm disabled" role="button" aria-disabled="true">ver</a> </ul> </td>
+    
     </table>
+    </th>
     </div>
-
+    
+</body>

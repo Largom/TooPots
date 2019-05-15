@@ -14,8 +14,8 @@ public class ReservaRowMapper implements RowMapper<Reserva> {
         Reserva reserva = new Reserva();
 
         reserva.setId_reserva(rs.getString("id_reserva"));
-        reserva.setId_actividad(rs.getString("id_actividad"));
-        reserva.setId_cliente(rs.getInt("id_cliente"));
+        reserva.setId_actividad(rs.getInt("id_actividad"));
+        reserva.setId_cliente(rs.getString("id_cliente"));
         reserva.setAsistentes(rs.getInt("asistentes"));
         reserva.setPrecioFinal(rs.getInt("preciofinal"));
         reserva.setPrecioTotal(rs.getInt("preciototal"));

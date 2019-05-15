@@ -17,15 +17,16 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
         actividad.setNombre(rs.getString("nombre"));
         actividad.setLugar(rs.getString("lugar"));
         try {
-            //actividad.setHora(rs.getObject("hora", LocalTime.class));
-            //actividad.setDuracion(rs.getObject("duracion", LocalTime.class));
+        	        			
+            //actividad.setHora(rs.getString("hora"));
+            //actividad.setDuracion(rs.getString("duracion"));
             actividad.setDescripcion(rs.getString("descripcion"));
             actividad.setPrecio(rs.getInt("precio"));
             actividad.setAsistentesMinimos(rs.getInt("asistentesminimos"));
             actividad.setAsistentesMaximos(rs.getInt("asistentesmaximos"));
             actividad.setObservaciones(rs.getString("observaciones"));
             actividad.setEstado(rs.getString("estado"));
-
+            actividad.setClasificacion(rs.getString("clasificacion"));
         }
         catch (Exception e){}
 

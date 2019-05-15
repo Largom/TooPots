@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
+<head>
+    <title>Realizar reserva</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+<div class="container">
+  <br><h2>Realizar reserva</h2><br>
+			  <div class="card-body">
+			  
+			  <p> Seleccione la cantidad de personas que desea inscribir en la actividad <th:text="${nombre}"></th> <br>
+			 		El precio individual por persona es: <b>  <th:text="${precioPorPersona}"> </th> </p> </b>
+		<!-- 	 		
+			    Al seleccionar la cantidad de usuarios de la actividad y aceptar, se realizará una reserva sobre la actividad. 
+			    Una vez aceptada por el monitor, dispondrá de hasta 10 días antes de la actividad para cancelar la reseva
+		-->
+			
+			</div>
+		
+  			    
+  
+ 	 <form class="form-horizontal"  action="#" th:action="@{/reserva/reaReserva/
+ 	 	th:object="${reserva}"method="post" enctype="multipart/form-data">
+
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="observaciones"> observaciones:</label>
+            <div class="col-sm-4">
+			      <input type="text" class="form-control" id="observaciones" th:field="*{observaciones}">
+        </div>
+        
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="asistentes"> asistentes:</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="asistentes" th:field="*{asistentes}">
+            </div>
+        </div>
+
+			    <button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	  		  
+	  
+	  </form>
+
+</div>
+</div>
+</body>
+</html>

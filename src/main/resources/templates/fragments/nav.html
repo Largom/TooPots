@@ -14,7 +14,7 @@
                     <li class="nav-item active" ><a class="nav-link" href="/logueado" th:href="@{/}">INICIO</a></li>
                     <li class="nav-item" ><a class="nav-link" href="cliente/perfil" th:href="@{/cliente/perfil}">Mi perfil</a></li>
                     <li class="nav-item" ><a class="nav-link" href="cliente/reservas" th:href="@{/cliente/resevas}">Mis reservas</a></li>
-                    <li class="nav-item" ><a class="nav-link" href="" th:href="@{#}">Ver actividades</a></li>
+                    <li class="nav-item" ><a class="nav-link" href="actividad/listar" th:href="@{actividad/listar} ">Ver actividades</a></li>
             </ul>
         </div>
         <div th:if="*{role.equals('MONITOR')}">

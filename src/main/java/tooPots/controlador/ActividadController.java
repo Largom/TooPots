@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import tooPots.dao.ActividadDao;
 import tooPots.modelo.Actividad;
+import tooPots.modelo.Cliente;
 
 @Controller
 @RequestMapping("/actividad")
@@ -26,12 +27,26 @@ public class ActividadController {
 	public void setActividadDao(ActividadDao actividadDao) {
 		this.actividadDao = actividadDao;
 	}
+	
 
+	
     @RequestMapping(value="/add") 
 	public String addActividades(Model model) {
 		model.addAttribute("actividad", new Actividad());
 		return "actividad/add";
 	}
+    
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
+	                                BindingResult bindingResult) { 
+		 if (bindingResult.hasErrors()) 
+				return "actividad/add";
+		 actividadDao.addActividad(actividad);
+		 return "actividad/confirmacion"; 
+	 }
+
+    
+    
 	
 	@RequestMapping(value="/update/{nom}", method = RequestMethod.GET) 
 	public String editNadador(Model model, @PathVariable  int id) { 
@@ -44,14 +59,7 @@ public class ActividadController {
            return "redirect:../listar"; 
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String processAddSubmit(@ModelAttribute("actividades") Actividad actividad,
-	                                BindingResult bindingResult) { 
-		 if (bindingResult.hasErrors()) 
-				return "actividad/add";
-		 actividadDao.addActividad(actividad);
-		 return "actividad/confirmacion"; 
-	 }
+
 	
 	
 	@RequestMapping(value="/update/{actividad}", method = RequestMethod.POST) 

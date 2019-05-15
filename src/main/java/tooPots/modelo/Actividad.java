@@ -9,18 +9,19 @@ public class Actividad {
     private int id_actividad;
     private String nombre;
     private String lugar;
-    @DateTimeFormat (pattern = "HH:mm:ss.SSS" )
-    private LocalTime hora;
-    @DateTimeFormat (pattern = "HH:mm:ss.SSS" )
-    private LocalTime duracion;
+    //@DateTimeFormat (pattern = "HH:mm:ss.SSS" )
+    private final String hora = "";
+    //@DateTimeFormat (pattern = "HH:mm:ss.SSS" )
+    private final String duracion = "";
     private String descripcion;
     private int precio;
     private int asistentesMinimos;
     private int asistentesMaximos;
     private String observaciones;
     private String estado;
+    private String clasificacion; 
 
-    public Actividad() {
+	public Actividad() {
     }
 
     public int getId_actividad() {
@@ -47,20 +48,26 @@ public class Actividad {
         this.lugar = lugar;
     }
 
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setHora(String horastr) {
+    	//String[] vecHora = horastr.split(":");
+    	//LocalTime hora = LocalTime.of((Integer.parseInt(vecHora[0])), Integer.parseInt(vecHora[1]), 0, 0);
+
+        
     }
 
-    public LocalTime getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(LocalTime duracion) {
-        this.duracion = duracion;
+    public void setDuracion(String duracionstr) {
+    	//String[] vecDura = duracionstr.split(":");
+    	//LocalTime duracion = LocalTime.of((Integer.parseInt(vecDura[0])), Integer.parseInt(vecDura[1]), 0, 0);
+    	
+     
     }
 
     public String getDescripcion() {
@@ -110,4 +117,13 @@ public class Actividad {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
+    public String getClasificacion() {
+		return clasificacion;
+	}
+
+	public void setClasificacion(String clasificacion) {
+		this.clasificacion = clasificacion;
+	}
+    
 }

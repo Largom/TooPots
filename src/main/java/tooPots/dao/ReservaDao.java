@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import tooPots.modelo.Actividad;
 import tooPots.modelo.Reserva;
 
 import java.util.ArrayList;
@@ -24,6 +26,14 @@ public class ReservaDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    
+    // Crear reserva
+    public void addReserva(Reserva reserva) {
+    		jdbcTemplate.update("INSERT INTO reserva (id_actividad, id_cliente, asistentes, precioFinal, precioTotal, numTransaccion, observaciones, estado)"
+    				+ " VALUES(?, ?, ?, ?,?, ?, ?, ?)"
+    				, reserva.getId_actividad(), reserva.getId_cliente(), reserva.getAsistentes(), reserva.getPrecioFinal(), reserva.getPrecioTotal(),
+    				reserva.getNumTransaccion(), reserva.getObservaciones(), reserva.getEstado());
+     }
 
     //Lista reservas de un cliente
     public List<Reserva> listaReservas(int id_cliente) {

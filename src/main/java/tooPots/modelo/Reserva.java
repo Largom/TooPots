@@ -3,8 +3,8 @@ package tooPots.modelo;
 public class Reserva {
 
     private String id_reserva;
-    private String id_actividad;
-    private int id_cliente;
+    private int id_actividad;
+    private String id_cliente;
     private int asistentes;
     private int precioFinal;
     private int precioTotal;
@@ -23,19 +23,19 @@ public class Reserva {
         this.id_reserva = id_reserva;
     }
 
-    public String getId_actividad() {
+    public int getId_actividad() {
         return id_actividad;
     }
 
-    public void setId_actividad(String id_actividad) {
+    public void setId_actividad(int id_actividad) {
         this.id_actividad = id_actividad;
     }
 
-    public int getId_cliente() {
+    public String getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(int id_cliente) {
+    public void setId_cliente(String id_cliente) {
         this.id_cliente = id_cliente;
     }
 

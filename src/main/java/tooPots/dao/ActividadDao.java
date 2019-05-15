@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import tooPots.modelo.Actividad;
 import tooPots.modelo.Cliente;
+import tooPots.modelo.Monitor;
 
 import javax.sql.DataSource;
 
@@ -29,9 +30,15 @@ public class ActividadDao {
     }
 
     //Buscamos actividad
+        
     public Actividad busquedaActividad(int id_actividad){
-        return jdbcTemplate.queryForObject("SELECT * from actividad WHERE id_actividad=?",
-                new ActividadRowMapper() , id_actividad);
+    	
+    	System.out.println("estoy buscando: " + id_actividad);
+    	
+        Actividad actividad = jdbcTemplate.queryForObject("SELECT * from actividad WHERE id_actividad=?", 
+                new ActividadRowMapper(), id_actividad);
+        
+        return actividad;
 
 
     }
@@ -60,10 +67,10 @@ public class ActividadDao {
 
     // Crear actividad
     public void addActividad(Actividad actividad) {
-    		jdbcTemplate.update("INSERT INTO actividad (nombre, lugar, hora, duracion, descripcion, precio, asistentesMinimos, asistentesMaximos, observaciones, estado)"
-    				+ " VALUES(?, ?, ?, ?,?, ?, ? , ?,?, ?)"
+    		jdbcTemplate.update("INSERT INTO actividad (nombre, lugar, hora, duracion, descripcion, precio, asistentesMinimos, asistentesMaximos, observaciones, estado, clasificacion)"
+    				+ " VALUES(?, ?, ?, ?,?, ?, ? , ?,?, ?, ?)"
     				, actividad.getNombre(), actividad.getLugar(), actividad.getHora(), actividad.getDuracion(), actividad.getDescripcion(), actividad.getPrecio(),
-    				actividad.getAsistentesMaximos(), actividad.getAsistentesMinimos(), actividad.getObservaciones(), actividad.getEstado());
+    				actividad.getAsistentesMaximos(), actividad.getAsistentesMinimos(), actividad.getObservaciones(), actividad.getEstado(), actividad.getClasificacion());
     }
 
 
