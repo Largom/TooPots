@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tooPots.dao.ActividadDao;
+import tooPots.dao.ClienteDao;
 import tooPots.dao.MonitorDao;
 import tooPots.dao.ReservaDao;
 import tooPots.modelo.Actividad;
@@ -67,47 +68,37 @@ public class ReservaController{
 	@Autowired
 	private ActividadDao actividadDao;
 	
+	@Autowired
+	private ClienteDao clienteDao;
+	
     @Autowired
     private UsuariosServicio usuarioSV;
     
     
     //Inscribirse en una actividad (realizar reserva) 
     @RequestMapping(value="/reaReserva/{id_actividad}")
-    public String realizarReserva( @PathVariable int id_actividad, Model model, HttpSession session) {
-    	
-    	Reserva reserva = new Reserva();
-    	reserva.setId_actividad(id_actividad);
-    	
-        Actividad actividad = actividadDao.busquedaActividad(id_actividad);
+    public String realizarReserva( @PathVariable int id_actividad, Model model) {
         
-        Usuario user = (Usuario)session.getAttribute("usuario"); // Usuario que realiza la reserva
-        
-        //Debe estar  regisstrado
-        String id_cliente = user.getUsuario();
-        reserva.setId_cliente(id_cliente);
-
-        reserva.setNumTransaccion(NUMS_RESERVA.incrementAndGet());
-        
-        model.addAttribute("reserva", reserva);
-        model.addAttribute("id_actividad", id_actividad);
-        model.addAttribute("nombre", actividad.getNombre());
-        model.addAttribute("precioPorPersona", actividad.getPrecio());
-        
+        model.addAttribute("reserva", new Reserva());     
+        model.addAttribute("actividad", actividadDao.busquedaActividad(id_actividad));  
         return "reserva/reaReserva";
     }
 
     
   //  
     @RequestMapping(value="/reaReserva/{id_actividad}", method = RequestMethod.POST)
-    public String actualizaReserva(Model model,   @ModelAttribute("reserva") Reserva reserva) {
+    public String actualizaReserva(Model model, @ModelAttribute("reserva") Reserva reserva, @PathVariable int id_actividad,
+    		HttpSession session) {
     	
-    	System.out.println(reserva.getId_actividad());
+    	Usuario user = (Usuario) (session.getAttribute("usuario"));
+    	    	
+    	reserva.setId_cliente( clienteDao.busquedaClientePorCorreo(user.getUsuario()).getId_cliente());
     	
         Actividad actividad = actividadDao.busquedaActividad(reserva.getId_actividad());
         reserva.setPrecioFinal(actividad.getPrecio() * reserva.getAsistentes());
         reserva.setPrecioTotal(actividad.getPrecio() * reserva.getAsistentes());
 
-        reserva.setEstado("abierta");
+        reserva.setEstado("Pendiente");
         //Si no hay error
         reservaDao.addReserva(reserva);
         

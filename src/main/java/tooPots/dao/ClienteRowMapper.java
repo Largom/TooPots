@@ -12,6 +12,7 @@ public class ClienteRowMapper implements RowMapper<Cliente> {
 
         Cliente cliente = new Cliente();
 
+        cliente.setId_cliente((rs.getInt("id_cliente")));
         cliente.setNombre(rs.getString("nombre"));
         cliente.setnif(rs.getString("dni"));
 

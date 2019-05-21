@@ -33,8 +33,6 @@ public class ActividadDao {
         
     public Actividad busquedaActividad(int id_actividad){
     	
-    	System.out.println("estoy buscando: " + id_actividad);
-    	
         Actividad actividad = jdbcTemplate.queryForObject("SELECT * from actividad WHERE id_actividad=?", 
                 new ActividadRowMapper(), id_actividad);
         

@@ -53,11 +53,24 @@
             
             <td><a  href="#" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">ver</a></td>
 
+			<td>
+                
+                
+                <!--
+                <fieldset>
+                <select id="asistentes" th:name="${asistentes}">
+	    				<option th:each="i : ${#numbers.sequence(0, 10)}" th:text="${i}" th:value="${i}" 
+	      				th:selected="${i==0}"></option>
+					</select>
+					<a type="submit" th:href="@{/reserva/reaReserva/{id_actividad}(id_actividad=${actividad.id_actividad}}" class="btn btn-warning btn-sm" role="button" >Reservar</a></td>
+					  </fieldset>
+					-->
+					
+    				<a type="submit" th:href="@{/reserva/reaReserva/{id_actividad}(id_actividad=${actividad.id_actividad})}" class="btn btn-warning btn-sm" role="button" >Reservar</a></td>
+					 
 
-            <div class="btn-toolbar">
-                <div class="btn-group" role="group">
-                    <td><a th:href="@{/reserva/reaReserva/{id_actividad}(id_actividad=${actividad.id_actividad})}" class="btn btn-warning btn-sm" role="button">Reservar</a></td>
-                    
+              
+              </td>  
                     
                     
                 </div>

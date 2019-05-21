@@ -40,6 +40,12 @@ public class ClienteDao {
         return jdbcTemplate.queryForObject("SELECT * from cliente WHERE id_cliente=?",
                 new ClienteRowMapper() , id_cliente);
 
+    }
+    
+    
+    public Cliente busquedaClientePorCorreo(String correo_cliente){
+        return jdbcTemplate.queryForObject("SELECT * from cliente WHERE email=?",
+                new ClienteRowMapper() , correo_cliente);
 
     }
 

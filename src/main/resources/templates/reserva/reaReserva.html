@@ -13,21 +13,64 @@
 <div layout:fragment="content">
 <div class="container">
   <br><h2>Realizar reserva</h2><br>
-			  <div class="card-body">
+	<div class="card-body">
 			  
-			  <p> Seleccione la cantidad de personas que desea inscribir en la actividad <th:text="${nombre}"></th> <br>
-			 		El precio individual por persona es: <b>  <th:text="${precioPorPersona}"> </th> </p> </b>
-		<!-- 	 		
-			    Al seleccionar la cantidad de usuarios de la actividad y aceptar, se realizará una reserva sobre la actividad. 
-			    Una vez aceptada por el monitor, dispondrá de hasta 10 días antes de la actividad para cancelar la reseva
-		-->
-			
-			</div>
-		
-  			    
+		 	 	
+ 	 	<dl> 
+ 	 		<dt>Actividad seleccionada: </dt>
+ 	 		<dd> <p th:text="${actividad.nombre}"></dd> 
+ 	 	
+ 	 	
+	 	 	<dt>Precio por persona: </dt>
+	 	 	<dd> <p th:text="${actividad.precio}"></dd> 
+ 	 	<dl> 
+ 	 	
+ 	 	                
   
- 	 <form class="form-horizontal"  action="#" th:action="@{/reserva/reaReserva/
+  
+ 	 <form class="form-horizontal"  th:action="@{/reserva/reaReserva/{id_actividad}(id_actividad=${actividad.id_actividad})}"
  	 	th:object="${reserva}"method="post" enctype="multipart/form-data">
+ 	 	
+ 	 	
+ 	 	<div class="form-group row">
+            <label class="control-label col-sm-2" for="asistentes"> asistentes:</label>
+            <div class="col-sm-4">
+                <input type="text" size="2" class="form-control" required id="asistentes" th:field="*{asistentes}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('asistentes')}" th:errors="*{asistentes}"></div>
+        </div>
+        
+        
+         <div class="form-group row">
+            <label class="control-label col-sm-2" for="observaciones"> observaciones:</label>
+            <div class="col-sm-4">
+                <input type="text" size="50" class="form-control" id="observaciones" th:field="*{observaciones}">
+            </div>
+            <div class="error" th:if="${#fields.hasErrors('observaciones')}" th:errors="*{observaciones}"></div>
+        </div>
+        
+        <button type="submit" value="Realizar reserva" class="btn btn-primary ">Submit</button>
+ 	 	
+ 	 	
+	  </form>
+ 	 	
+<!-- Le pasara a reserva el id y el numero de actividad 
+
+		<select name="asistentes">
+		  <option value="1">1</option>
+		  <option value="2">2</option>
+		  <option value="3">3</option>
+		  <option value="4">4</option>
+		    <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		    <option value="9">9</option>
+		  <option value="10">10</option>
+		</select>
+		  
+		  <input type="submit" value="Submit">
+
 
         <div class="form-group row">
             <label class="control-label col-sm-2" for="observaciones"> observaciones:</label>
@@ -42,11 +85,12 @@
             </div>
         </div>
 
-			    <button type="submit" class="btn btn-primary">Submit</button>
+			    
 		</div>
-	  		  
+		
+		-->	  
 	  
-	  </form>
+
 
 </div>
 </div>

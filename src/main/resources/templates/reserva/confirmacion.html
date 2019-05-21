@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
 <head>
-    <title> Reserva Realizada</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <title>Reserva Realizada</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
+
+
+
 <body>
+<div layout:fragment="content">
+<div class="card-body">
+
+
     <div class="container">
-        <h1> ¡Reserva Realizada! </h1>
+        <h1> ¡Reserva realizada correctamente! </h1>
     </div>
+    
+    
+</div>
+</div>
 </body>
 </html>
