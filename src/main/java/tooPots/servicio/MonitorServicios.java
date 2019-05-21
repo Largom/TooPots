@@ -70,7 +70,7 @@ public class MonitorServicios implements MonitorSv{
 
 
     public List<String> getTiposActividad(){
-        return actividaddao.getTipoActividad();
+        return actividaddao.getTiposActividad();
     }
 
     public List<String> getNiveles(){

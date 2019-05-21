@@ -10,12 +10,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 import tooPots.dao.ActividadDao;
 import tooPots.modelo.Actividad;
 import tooPots.modelo.Cliente;
+
+
+class ActividadValidator implements Validator {
+    @Override
+    public boolean supports(Class<?> cls) {
+        return Actividad.class.isAssignableFrom(cls);
+    }
+    @Override
+    public void validate(Object obj, Errors errors) {
+
+
+        Actividad actividad = (Actividad) obj;
+
+        if(actividad.getNombre().trim().equals(""))
+            errors.rejectValue("nombre", "obligatorio", "Campo necesario");
+        if(actividad.getLugar().trim().equals(""))
+            errors.rejectValue("lugar", "obligatorio", "Campo necesario");
+        if(actividad.getPrecio() == 0)
+            errors.rejectValue("precio", "obligatorio", "Campo necesario");
+        if(actividad.getAsistentesMinimos() == 0)
+            errors.rejectValue("asistentesMinimos", "obligatorio", "Campo necesario");
+        if(actividad.getAsistentesMaximos() == 0)
+            errors.rejectValue("asistentesMaximos", "obligatorio", "Campo necesario");
+    
+        
+    }
+}
+
+
+
+
+
+
 
 @Controller
 @RequestMapping("/actividad")
@@ -32,15 +67,29 @@ public class ActividadController {
 	
     @RequestMapping(value="/add") 
 	public String addActividades(Model model) {
-		model.addAttribute("actividad", new Actividad());
+		
+    	model.addAttribute("actividad", new Actividad());
+		model.addAttribute("tipos_actividad", actividadDao.getTiposActividad());
+		model.addAttribute("niveles", actividadDao.getNiveles());
+		
+		
 		return "actividad/add";
 	}
     
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
-	                                BindingResult bindingResult) { 
-		 if (bindingResult.hasErrors()) 
+	                                BindingResult bindingResult, Model model) { 
+		
+        ActividadValidator actividadValidator = new ActividadValidator();
+        actividadValidator.validate(actividad, bindingResult);
+		
+		 if (bindingResult.hasErrors()) { 
+				model.addAttribute("tipos_actividad", actividadDao.getTiposActividad());
+				model.addAttribute("niveles", actividadDao.getNiveles());
 				return "actividad/add";
+		 }
+		 
+		 actividad.setEstado("Abierta");
 		 actividadDao.addActividad(actividad);
 		 return "actividad/confirmacion"; 
 	 }

@@ -72,17 +72,17 @@ public class ActividadDao {
     }
 
 
-    public List<String> getTipoActividad(){
+    public List<String> getTiposActividad(){
 
-        List<String> actividad =  jdbcTemplate.queryForList("SELECT descripcion from tipo_actividad", String.class);
-
+        List<String> actividad =  jdbcTemplate.queryForList("SELECT descripcion from tipo_actividad", String.class); //String[]
         return actividad;
     }
+    
 
 
     public List<String> getNiveles(){
 
-        List<String> niveles =  jdbcTemplate.queryForList("SELECT descripcion from tipo_nivel", String.class);
+        List<String> niveles =  jdbcTemplate.queryForList("SELECT id_nivel from tipo_nivel", String.class);
 
         return niveles;
     }
