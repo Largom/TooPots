@@ -6,13 +6,22 @@ public class Reserva {
     private int id_actividad;
     private int id_cliente;
     private int asistentes;
-    private int precioFinal;
+    private int precioPersona;
     private int precioTotal;
     private int numTransaccion;
     private String observaciones;
     private String estado;
+    private String nombreActividad;
 
-    public Reserva() {
+    public String getNombreActividad() {
+		return nombreActividad;
+	}
+
+	public void setNombreActividad(String nombreActividad) {
+		this.nombreActividad = nombreActividad;
+	}
+
+	public Reserva() {
     }
 
     public String getId_reserva() {
@@ -47,12 +56,12 @@ public class Reserva {
         this.asistentes = asistentes;
     }
 
-    public int getPrecioFinal() {
-        return precioFinal;
+    public int getPrecioPersona() {
+        return precioPersona;
     }
 
-    public void setPrecioFinal(int precioFinal) {
-        this.precioFinal = precioFinal;
+    public void setPrecioPersona(int precioPersona) {
+        this.precioPersona = precioPersona;
     }
 
     public int getPrecioTotal() {

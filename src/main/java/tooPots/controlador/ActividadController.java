@@ -1,5 +1,18 @@
 package tooPots.controlador;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -16,11 +30,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 
 import tooPots.dao.ActividadDao;
+import tooPots.dao.MonitorDao;
 import tooPots.modelo.Actividad;
 import tooPots.modelo.Cliente;
+import tooPots.modelo.Monitor;
+import tooPots.modelo.TipoActividad;
+import tooPots.modelo.Usuario;
 
 
 class ActividadValidator implements Validator {
+	
+	@Autowired
+    private ActividadDao actividadDao;
+	
     @Override
     public boolean supports(Class<?> cls) {
         return Actividad.class.isAssignableFrom(cls);
@@ -33,6 +55,17 @@ class ActividadValidator implements Validator {
 
         if(actividad.getNombre().trim().equals(""))
             errors.rejectValue("nombre", "obligatorio", "Campo necesario");
+        
+        /*
+        List<Actividad> actividades = actividadDao.listaActividad();
+        String nombrePropuesto = actividad.getNombre().trim(); 
+        
+        for( Actividad act : actividades) {
+        	if (act.getNombre().equals(nombrePropuesto))
+        		errors.rejectValue("nombre", "replicado", "¡Existe ya una actividad con el mismo nombre!");
+        }
+        */
+        
         if(actividad.getLugar().trim().equals(""))
             errors.rejectValue("lugar", "obligatorio", "Campo necesario");
         if(actividad.getPrecio() == 0)
@@ -46,17 +79,17 @@ class ActividadValidator implements Validator {
     }
 }
 
-
-
-
-
-
-
 @Controller
 @RequestMapping("/actividad")
 public class ActividadController {
-
+    
+	@Autowired
     private ActividadDao actividadDao;
+    
+    @Autowired
+    private MonitorDao monitorDao;
+    
+    
 
 	@Autowired
 	public void setActividadDao(ActividadDao actividadDao) {
@@ -78,10 +111,12 @@ public class ActividadController {
     
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String processAddSubmit(@ModelAttribute("actividad") Actividad actividad,
-	                                BindingResult bindingResult, Model model) { 
+	                                BindingResult bindingResult, Model model, HttpSession session,
+	                                @RequestParam("image") MultipartFile image, RedirectAttributes atts) { 
 		
+		// Validamos
         ActividadValidator actividadValidator = new ActividadValidator();
-        actividadValidator.validate(actividad, bindingResult);
+        actividadValidator.validate(actividad, bindingResult);    
 		
 		 if (bindingResult.hasErrors()) { 
 				model.addAttribute("tipos_actividad", actividadDao.getTiposActividad());
@@ -89,11 +124,69 @@ public class ActividadController {
 				return "actividad/add";
 		 }
 		 
-		 actividad.setEstado("Abierta");
+		 // Preparamos datos e insertamos tanto como actividad como monitorActividad
+	     Usuario user = (Usuario)session.getAttribute("usuario");
+		 Monitor monitor = monitorDao.consultaMonitor( user.getUsuario().trim() );
+	     int id_monitor = monitor.getId_monitor();
+	     actividad.setEstado("Abierta");
+		 
 		 actividadDao.addActividad(actividad);
+		 
+		 int id_actividad=actividadDao.busquedaID(actividad);
+
+		 actividadDao.addMonitorActividad(id_monitor, id_actividad);
+		 
+		 if (image.isEmpty()) {			 
+			 atts.addFlashAttribute("imagen","necesita colocar una imagen");
+			 
+		 }
+		 
+		 
+		 try {
+			 
+			 
+			 
+			 // Diferentes tipos de imagen: diferente formato para guardarlo también
+			 
+			 String[] nombreOriginal = image.getOriginalFilename().split(Pattern.quote("."));
+			 String tipoImagen = nombreOriginal[nombreOriginal.length -1];
+			 
+			 Path path =  Paths.get("TooPots/src/main/resources/static/img/" + id_actividad + "." + tipoImagen);
+
+			
+			 Path parentPath = path.getParent();
+			 if (!Files.exists(parentPath))
+			     Files.createDirectories(parentPath);
+			 
+			 
+			 Files.write(path, image.getBytes());
+			 
+			 System.out.println(Files.readAllBytes(path));
+			 
+		 }catch(IOException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 
+		 
 		 return "actividad/confirmacion"; 
 	 }
-
+	
+	@RequestMapping(value="/addTipo")
+	public String addTipo(Model model) {
+		
+		model.addAttribute("tipos_actividad",actividadDao.getTiposActividad());
+		model.addAttribute("nuevoTipo", new TipoActividad());
+		
+		return "actividad/addTipo";
+	}
+	
+	@RequestMapping(value="/TipoNuevo/{nuevoTipo}", method=RequestMethod.POST)
+	public String addTipo(Model model, @PathVariable  String nuevoTipo) {
+		actividadDao.addtipoActividad(nuevoTipo);
+		System.out.println("aquí estoy tb");
+		return "actividad/addTipo/{nuevoTipo}";
+	}
     
     
 	
@@ -127,17 +220,20 @@ public class ActividadController {
 	                                BindingResult bindingResult) { 
 		 if (bindingResult.hasErrors()) 
 				return "actividad/delete";
-		 actividadDao.addActividad(actividad);
+		 actividadDao.borrarActividad(actividad.getId_actividad());
 		 return "redirect:listar"; 
 	 }
 	
 	
 	@RequestMapping("/listar")
 	public String listActividades(Model model) {
+		
 	   model.addAttribute("actividades", actividadDao.listaActividad());
+	   
+	   
 	   return "actividad/listar";
 	}	
-	
+	/*
 	@RequestMapping(value="/listar", method=RequestMethod.POST)
 	public String processListSubmit(@ModelAttribute("actividades") Actividad actividad,
 	                                BindingResult bindingResult) { 
@@ -146,19 +242,16 @@ public class ActividadController {
 		 actividadDao.addActividad(actividad);
 		 return "redirect:listar"; 
 	 }
+	 */
 	/**
 	 * @return the actividadDao
 	 */
 	public ActividadDao getActividadDao() {
 		return actividadDao;
 	}
+	
 
 
 
 
 }
-
-
-    
-
-

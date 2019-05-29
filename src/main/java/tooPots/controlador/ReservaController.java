@@ -3,6 +3,7 @@ package tooPots.controlador;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,6 +27,8 @@ import tooPots.modelo.Cliente;
 import tooPots.modelo.Monitor;
 import tooPots.modelo.Reserva;
 import tooPots.modelo.Usuario;
+import tooPots.servicio.ReservaServicios;
+import tooPots.servicio.ReservaSv;
 import tooPots.servicio.UsuariosServicio;
 
 
@@ -45,8 +48,8 @@ class ReservaValidator implements Validator {
         Reserva reserva = (Reserva) obj;
 
         
-//        if(cliente.getNombre().trim().equals(""))
-//            errors.rejectValue("nombre", "obligatorio", "Campo necesario");
+       if(reserva.getAsistentes() == 0 )
+           errors.rejectValue("asistentes", "obligatorio", "Campo necesario");
 
          
         
@@ -74,13 +77,16 @@ public class ReservaController{
     @Autowired
     private UsuariosServicio usuarioSV;
     
+   
     
     //Inscribirse en una actividad (realizar reserva) 
     @RequestMapping(value="/reaReserva/{id_actividad}")
     public String realizarReserva( @PathVariable int id_actividad, Model model) {
         
-        model.addAttribute("reserva", new Reserva());     
-        model.addAttribute("actividad", actividadDao.busquedaActividad(id_actividad));  
+        model.addAttribute("reserva", new Reserva()); 
+        model.addAttribute("actividad", actividadDao.busquedaActividad(id_actividad));
+        model.addAttribute("nombre_actividad", actividadDao.busquedaActividad(id_actividad).getNombre());  
+        model.addAttribute("precioPorPersona", actividadDao.busquedaActividad(id_actividad).getPrecio()); 
         return "reserva/reaReserva";
     }
 
@@ -95,7 +101,7 @@ public class ReservaController{
     	reserva.setId_cliente( clienteDao.busquedaClientePorCorreo(user.getUsuario()).getId_cliente());
     	
         Actividad actividad = actividadDao.busquedaActividad(reserva.getId_actividad());
-        reserva.setPrecioFinal(actividad.getPrecio() * reserva.getAsistentes());
+        reserva.setPrecioPersona(actividad.getPrecio());
         reserva.setPrecioTotal(actividad.getPrecio() * reserva.getAsistentes());
 
         reserva.setEstado("Pendiente");
@@ -106,7 +112,24 @@ public class ReservaController{
         
     }
     
-    
+	@RequestMapping("/listar")
+	public String listReservas(Model model, HttpSession session) {
+		
+    	Usuario user = (Usuario) (session.getAttribute("usuario"));
+		int id_cliente = clienteDao.busquedaClientePorCorreo(user.getUsuario()).getId_cliente();
+		
+		List<Reserva> reservas = reservaDao.listaReservas(id_cliente);
+		//List<Actividad> actividades = actividadDao.listaActividad();
+		List<String> nombresActividad = new ArrayList<>();
+		
+		
+		
+	   model.addAttribute("reservas", reservas);
+	   model.addAttribute("nomsActividad", nombresActividad);
+	   
+	   
+	   return "reserva/listar";
+	}	
     
     
 

@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalTime;
 
 public class Actividad {
-
+	
     private int id_actividad;
     private String nombre;
     private String lugar;
@@ -19,8 +19,18 @@ public class Actividad {
     private int asistentesMaximos;
     private String observaciones;
     private String estado;
-    private String clasificacion; 
+    private String tipo;
+    private int nivel;
+   /* private String image;
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+*/
 	public Actividad() {
     }
 
@@ -117,13 +127,23 @@ public class Actividad {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    public String getClasificacion() {
-		return clasificacion;
+
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setClasificacion(String clasificacion) {
-		this.clasificacion = clasificacion;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+    
+
     
 }

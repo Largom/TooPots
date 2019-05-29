@@ -72,9 +72,10 @@ public class MonitorServicios implements MonitorSv{
     public List<String> getTiposActividad(){
         return actividaddao.getTiposActividad();
     }
+    
 
     public List<String> getNiveles(){
-        return actividaddao.getNiveles();
+        return new ArrayList<String>();
     }
 
     public void añadirClasificacion(int id_monitor, String tipo, int nivel){

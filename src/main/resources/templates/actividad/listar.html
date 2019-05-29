@@ -27,24 +27,38 @@
         
         <thead>
         <tr style="text-align:center; background-color:  #d4e4f0 ;">
+        	<th class="col-md-3"> - </th>
             <th class="col-md-5">Datos</th>
             <th class="col-md-3">Info</th>
             <th class="col-md-3">Categoria</th>
-            <th class="col-md-2">Reservar</th>
+            <th class="col-md-3">Reservar</th>
         </tr>
         </thead>
         
         <tbody>
         <tr th:each="actividad: ${actividades}">
+
+            <td>
+                                <h2><p th:text="${actividad.nombre} + ' (' + ${actividad.lugar} + ')' "/></h2>
+            	<img th:attr="th:src="@{/img/}" + ${actividad.id_actividad}"/>
+            	
+            	 <img th:attr="src=@{|/img/champion_icons/${nombre}.png|},title=${nombre},alt=${nombre}" />
+            	<!-- <img th:attr="src=@{'TooPots/src/main/resources/static/img/ima_n' + ${actividad.id_actividad} + '.jpg'}" /> -->
+            	
+            </td>
+        
             <td>
                 <ul>
-                    <li type="circle"><i class="listado">	Nombre:</i><p th:text="${actividad.nombre}"/></li>
+
                     <li type="circle"><i class="listado">	Lugar:</i><p th:text="${actividad.lugar}"/></li>
                     <li type="circle"><i class="listado">	Hora:</i><p th:text= "${{actividad.hora}}"/></li>
                     <li type="circle"><i class="listado">	Duracion:</i><p th:text= "${{actividad.duracion}}"/></li>
                     <li type="circle"><i class="listado">	Precio por Persona:</i><p th:text= "${actividad.precio}"/></li>
                 </ul>
             </td>
+            
+
+            
             
             <td>
                     <li type="circle"><i class="listado">	Descripcion:</i><p th:text="${actividad.descripcion}"/></li>
@@ -70,7 +84,9 @@
 					 
 
               
-              </td>  
+              </td>
+              <!-- <hr/> Estructura de secciones ->
+              </tr>  
                     
                     
                 </div>
@@ -78,12 +94,7 @@
 		</div>
 		
 		
-		
-		
-		
-		
-		
-		
+
 		
 <!-- NOT CLIENTE -->		
 		
@@ -123,6 +134,7 @@
             <td> <ul> <a  href="#" class="btn btn-success btn-sm disabled" role="button" aria-disabled="true">ver</a> </ul> </td>
     
     </table>
+    <hr/>
     </th>
     </div>
     

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Añadir Actividad</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+<div class="card-body">
+
+	<div class="container">
+	    <br>
+			<h2>Añadir tipo de actividad</h2>
+	    </br>
+	    
+	        <select>
+                <th:block th:each="tipo : ${tipos_actividad}">
+                	<option value="${tipo}" th:text="${tipo}"> </option>           
+            </select>
+            
+            
+        	 <form method="get" class="form-horizontal" th:action{ @{/actividad/tipoNuevo}}>
+            	 
+	            <input type=text name=nuevoTipo>
+	            <input type=submit>
+            
+            </form>
+            
+            
+        </div>

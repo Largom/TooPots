@@ -29,10 +29,10 @@ public class ReservaDao {
     
     // Crear reserva
     public void addReserva(Reserva reserva) {
-    		jdbcTemplate.update("INSERT INTO reserva (id_actividad, id_cliente, asistentes, precioFinal, precioTotal, numTransaccion, observaciones, estado)"
-    				+ " VALUES(?, ?, ?, ?,?, ?, ?, ?)"
-    				, reserva.getId_actividad(), reserva.getId_cliente(), reserva.getAsistentes(), reserva.getPrecioFinal(), reserva.getPrecioTotal(),
-    				reserva.getNumTransaccion(), reserva.getObservaciones(), reserva.getEstado());
+    		jdbcTemplate.update("INSERT INTO reserva (id_actividad, id_cliente, asistentes, precioPersona, precioTotal, numTransaccion, observaciones, estado, nombreActividad)"
+    				+ " VALUES(?, ?, ?, ?,?, ?, ?, ?, ?)"
+    				, reserva.getId_actividad(), reserva.getId_cliente(), reserva.getAsistentes(), reserva.getPrecioPersona(), reserva.getPrecioTotal(),
+    				reserva.getNumTransaccion(), reserva.getObservaciones(), reserva.getEstado(), reserva.getNombreActividad());
      }
 
     //Lista reservas de un cliente
@@ -56,8 +56,8 @@ public class ReservaDao {
     }
     //Actualizar reserva
     public void actualizarReserva(Reserva reserva){
-        jdbcTemplate.update("UPDATE reserva SET asistentes = ?, preciofinal=?, preciototal=?, numtransaccion=?, observaciones=?, estado=?",
-                reserva.getAsistentes(), reserva.getPrecioFinal(), reserva.getPrecioTotal(), reserva.getNumTransaccion(),
+        jdbcTemplate.update("UPDATE reserva SET asistentes = ?, preciopersona=?, preciototal=?, numtransaccion=?, observaciones=?, estado=?",
+                reserva.getAsistentes(), reserva.getPrecioPersona(), reserva.getPrecioTotal(), reserva.getNumTransaccion(),
                 reserva.getObservaciones(), reserva.getEstado());
     }
 

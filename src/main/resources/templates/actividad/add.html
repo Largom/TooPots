@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
 <head>
-    <title>Añadir Actividad</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <title>Actividades</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
 <body>
@@ -26,9 +27,7 @@
                 <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
             </div>
             <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
-        </div>
-        
-        <div class="form-group row">
+
             <label class="control-label col-sm-2" for="lugar"> Lugar:</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="lugar" th:field="*{lugar}">
@@ -44,9 +43,7 @@
                 <input type="text" class="form-control" id="hora" th:field="*{hora}">
             </div>
             <div class="error" th:if="${#fields.hasErrors('hora')}" th:errors="*{hora}"></div>
-        </div>
-        
-        <div class="form-group row">
+ 
             <label class="control-label col-sm-2" for="duracion"> Duración:</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="duracion" th:field="*{duracion}">
@@ -63,55 +60,59 @@
             <div class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
         </div>
         
-        
         <div class="form-group row">
-            <label class="control-label col-sm-2" for="precio"> Precio por persona:</label>
-            <div class="col-sm-4">
-                <input type="text" class="form-control" id="precio" th:field="*{precio}">
-            </div>
+            <label class="control-label col-sm-2" for="precio"> Precio:</label>
+            <div class="col-sm-2">
+			  <input type="text" class="form-control" id="precio" th:field="*{precio}">
+			</div>
             <div class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
-        </div>
-
-        <div class="form-group row">
-            <label class="control-label col-sm-2" for="asistentesMinimos"> Mínimo de asistentes:</label>
-            <div class="col-sm-4">
+                
+        
+          <label class="control-label col-sm-2" for="asistentesMinimos">Mínimo de asistentes:</label>
+            <div class="col-sm-2">
                 <input type="text" class="form-control" id="asistentesMinimos" th:field="*{asistentesMinimos}">
             </div>
             <div class="error" th:if="${#fields.hasErrors('asistentesMinimos')}" th:errors="*{asistentesMinimos}"></div>
-        </div>
-        
-        <div class="form-group row">
+
             <label class="control-label col-sm-2" for="asistentesMaximos"> Máximo de asistentes:</label>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
                 <input type="text" class="form-control" id="asistentesMaximos" th:field="*{asistentesMaximos}">
             </div>
             <div class="error" th:if="${#fields.hasErrors('asistentesMaximos')}" th:errors="*{asistentesMaximos}"></div>
         </div>
         
-        
-        
-         <div class="form-group row">
-            <label class="control-label col-sm-2" for="clasificacion"> Clasificacion:</label>
-            <div class="col-sm-4">
-            
-            <select>
-                <th:block th:each="tipo : ${tipos_actividad}">
-                	<option value="${tipo}" th:text="${tipo}"> </option>           
-            </select>           
-            
-             <select>
-                <th:block th:each="nivel : ${niveles}">
-                	<option value="${nivel}" th:text="${nivel}"> </option>           
-            </select>    
+<div class="form-group row">
 
-                
-            </div>
-        </div>
+          <label class="control-label col-sm-2" for="tipo">Tipo:</label>
+          <div class="col-sm-2">
+            	<select th:field="*{tipo}">
+					        <option  th:each="tipo : ${tipos_actividad}"
+		                		 value="${tipo}" th:value=${tipo} th:text="${tipo}"> </option>
+		           
+  				</select>  	
+         </div>
         
+         <label class="control-label col-sm-2" for="nivel">Nivel:</label>
+         <div class="col-sm-2">
+	        <select th:field="*{nivel}">
+		        	<option th:each="nivel: ${#numbers.sequence(1, 3)}" 
+		        	value="${nivel}" th:value="${nivel}" th:text="${nivel}"> </option>
+              	
+       		</select> 
+		 </div>
+      
+	<div class="form-group row"> 
+	         <label class="control-label col-sm-4" for="image">Imagen: </label>
+      		<div="col-sm-2">
+      			<input type="file" accept="image/*" id="image" name="image"/>
+      		</div>
+    </div>
         
+ <div class="form-group row">    
         <div text-align:center>
 	        <tr>
-	            <td colspan="2"><input type="submit" class="btn btn-success" value="Añadir Actividad" /></td>
+	            <td colspan="2"><button type="submit"
+	            class="btn btn-success" name="Añadir Actividad" /></td>
 	        </tr>
 	    </div> 
 	    </div>
@@ -121,3 +122,52 @@
 	</form>
 </body>
 </html>
+        
+        
+        
+        
+ <!--
+        <div class="form-group row">
+            <label class="control-label col-sm-2" for="precio"> Precio por persona:</label>
+           
+           <div class="col-sm-2">
+           <div class="input-group mb-3">
+ 			 <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+  <div class="input-group-append">
+    <span class="input-group-text">€</span>
+  </div>
+</div>
+</div>
+
+            
+            
+            
+
+
+<div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text">With textarea</span>
+  </div>
+  <textarea class="form-control" aria-label="With textarea"></textarea>
+</div>
+
+
+
+            <div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Action
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Separated link</a>
+  </div>
+</div>
+
+-->
+          
+            
+            
+    

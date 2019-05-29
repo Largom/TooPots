@@ -1,7 +1,23 @@
 package tooPots.modelo;
 
-public enum TipoActividad {
-	SURF, SKATEBOARDING, TIROLINA, CICLISMO, PARACAIDAS,
-	FUEGO, SUBMARINISMO;
+public class TipoActividad {
+
+	String tipoActividad;
+	
+	public TipoActividad() {}
+
+	public TipoActividad(String tipoActividad) {
+		this.tipoActividad = tipoActividad;
+	}
+
+	public String getTipoActividad() {
+		return tipoActividad;
+	}
+
+	public void setTipoActividad(String tipoActividad) {
+		this.tipoActividad = tipoActividad;
+	}
+	
+	
 
 }

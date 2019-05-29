@@ -26,7 +26,8 @@ public class ActividadRowMapper implements RowMapper<Actividad> {
             actividad.setAsistentesMaximos(rs.getInt("asistentesmaximos"));
             actividad.setObservaciones(rs.getString("observaciones"));
             actividad.setEstado(rs.getString("estado"));
-            actividad.setClasificacion(rs.getString("clasificacion"));
+            actividad.setTipo(rs.getString("tipo"));
+            actividad.setNivel(rs.getInt("nivel"));
         }
         catch (Exception e){}
 

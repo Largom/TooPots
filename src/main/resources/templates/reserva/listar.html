@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">>
+<head>
+    <title>reservaes</title>
+    <link th:href="@{/css/general.css}" href="/css/general" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+<!-- Esta version es para usuarios, habra que crear otra para el bueno de Manel -->
+       
+        <tbody>
+        <th:block th:each="reserva: ${reservas}">
+        	<th:each="actividad: ${actividades}">
+        	
+        	
+        	
+               <!-- <div th:if="${actividad.id_actividad==reserva.id_actividad}">
+        	</div>
+              
+               
+                    <li type="circle"><i class="listado">	Nombre:</i><p th:text="${actividad.nombre}"/></li>
+                    <li type="circle"><i class="listado">	Lugar:</i><p th:text="${actividad.lugar}"/></li>
+                     -->
+		<div>
+		
+		
+			<section>
+  				<h1>WWF</h1>
+  				<p>The World Wide Fund for Nature (WWF) is an international organization working on issues regarding the conservation, research and restoration of the environment, formerly named the World Wildlife Fund. WWF was founded in 1961.</p>
+
+		           		
+           <ul>
+                    <li type="circle"><i class="listado">	Asistentes:</i><p th:text= "${reserva.asistentes}"/></li>
+                    <li type="circle"><i class="listado">	Precio total:</i><p th:text= "${reserva.precioTotal}"/></li>
+            </ul>
+            
+            </section>
+		</div>
+    </th>
+    </th>
+    </tbody>
+    </div>
+    
+</body>
